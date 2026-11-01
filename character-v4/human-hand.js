@@ -1,0 +1,10 @@
+import * as T from 'three';
+export function buildHumanHand(data,material,side,parent){
+ const sign=side==='Left'?1:-1,root=new T.Bone();root.name=side+'Palm';parent.add(root);const bones=[root],joints=[];
+ for(let f=1;f<=5;f++){let p=root;const positions=data.fingerJoints[String(f)].map(a=>new T.Vector3(...a));for(let k=0;k<3;k++){const b=new T.Bone();b.name=side+'Finger'+f+'_'+k;b.position.copy(positions[k]);if(k)b.position.sub(positions[k-1]);p.add(b);p=b;bones.push(b);joints.push({bone:b,finger:f,segment:k,a:positions[k],b:positions[k+1],index:bones.length-1})}}
+ const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(data.positions,3));g.setAttribute('uv',new T.Float32BufferAttribute(data.uv,2));g.setIndex(data.indices);g.computeVertexNormals();const indices=[],weights=[],p=new T.Vector3(),d=new T.Vector3(),nearest=new T.Vector3();
+ for(let i=0;i<data.positions.length;i+=3){p.fromArray(data.positions,i);let best=null,dist=Infinity;for(const j of joints){d.subVectors(j.b,j.a);const t=T.MathUtils.clamp(p.clone().sub(j.a).dot(d)/d.lengthSq(),0,1);nearest.copy(j.a).addScaledVector(d,t);const q=p.distanceToSquared(nearest);if(q<dist){dist=q;best=j}}const finger=dist<.00024&&Math.abs(p.x)>.055;indices.push(finger?best.index:0,0,0,0);weights.push(1,0,0,0)}
+ g.setAttribute('skinIndex',new T.Uint16BufferAttribute(indices,4));g.setAttribute('skinWeight',new T.Float32BufferAttribute(weights,4));const mesh=new T.SkinnedMesh(g,material);mesh.name=side+'AnatomicalHand';mesh.castShadow=true;parent.add(mesh);parent.updateWorldMatrix(true,true);const skeleton=new T.Skeleton(bones);mesh.bind(skeleton);
+ function pose(name='relaxed',blend=1){if(!['open','relaxed','point'].includes(name))throw Error('Unbekannte Handhaltung.');const f=T.MathUtils.clamp(blend,0,1);for(const j of joints){const curl=name==='open'?0:name==='point'?(j.finger===2?0:j.finger===1?.08:.4):.14;const target=-sign*curl*(j.segment===0?.5:1);j.bone.rotation.z+= (target-j.bone.rotation.z)*f}}
+ return{mesh,skeleton,pose};
+}

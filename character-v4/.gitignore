@@ -1,0 +1,4 @@
+node_modules/
+.audio-models/
+generated/
+__pycache__/

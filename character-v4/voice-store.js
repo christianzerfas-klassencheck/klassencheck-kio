@@ -1,0 +1,3 @@
+function database(){return new Promise((resolve,reject)=>{const r=indexedDB.open('klassencheck-kio-voice',1);r.onupgradeneeded=()=>r.result.createObjectStore('voices');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)})}
+export async function saveVoice(record){const db=await database();try{await new Promise((resolve,reject)=>{const tx=db.transaction('voices','readwrite');tx.objectStore('voices').put(record,'latest');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}finally{db.close()}}
+export async function loadVoice(){const db=await database();try{return await new Promise((resolve,reject)=>{const r=db.transaction('voices').objectStore('voices').get('latest');r.onsuccess=()=>resolve(r.result||null);r.onerror=()=>reject(r.error)})}finally{db.close()}}
