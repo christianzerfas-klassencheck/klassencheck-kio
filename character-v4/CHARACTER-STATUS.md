@@ -8,7 +8,7 @@ Die GitHub-Fassung ersetzt die bisherige Figur aus Grundkörpern durch die im Kl
 - Begrüßung geht in eine ruhige, zugewandte Zuhörhaltung über.
 - Geglättete Blickbewegung, dezentes Lächeln und zeitlich variierendes Blinzeln.
 - Neu erzeugte deutsche M5-Aufnahme, alternativ eigene Aufnahmen aus dem Audioeditor; keine Gerätesprachsynthese.
-- Die Mundöffnung folgt bei neuen Audios der tatsächlich abgespielten Lautstärke. Das ist keine Lauterkennung oder perfekte deutsche Lippenanimation.
+- Vorbereitete Aufnahmen besitzen eine offline abgeleitete Lautspur. Mundformen, Gesten und Blinzelpunkte werden aus derselben tatsächlichen Abspielzeit gelesen. Rhubarb-Lautklassen und der grobe Gesichtsrig ergeben keine perfekte deutsche Artikulation.
 - Die frühere Bruchmission bleibt unter ../?v=3 erhalten. Die Hauptlernwelt und ihre laufenden Tests werden hierdurch nicht verändert.
 
 ## Stimme
@@ -24,3 +24,10 @@ Anatomische Basis: dokumentierte CC0-Derivate von MakeHuman; siehe assets/makehu
 M5 wurde vom Nutzer als Stimmfarbe bestätigt und bleibt unverändert. Die Gangsteuerung nutzt nun im Raum fixierte Standfüße, einzeln geplante Schritte mit weichem Anheben und Absetzen, leichtes Fußabrollen in der Schwungphase und eine zur Reichweite passende Kniebeugung. Beim Anhalten setzt Kio die Füße nacheinander zurück. Blick und Körper wenden sich zuerst dem Weg zu; die Fortbewegung beginnt erst nach der Drehung. Drehgeschwindigkeit ist begrenzt. Hüfte, Brustkorb, Arme, Ellenbogen und Handgelenke arbeiten zeitlich versetzt; der Armschwung folgt der tatsächlichen Ortsbewegung. Bei reduzierter Bewegung entfallen diese Zusatzbewegungen.
 
 13 automatisierte Tests bestehen, darunter Standkontakt während Ortsbewegung, Stoppschritte, Drehbegrenzung sowie Rig-Prüfungen bei 30 und 60 Zeitschritten pro Sekunde und auf dem beschleunigten diagonalen Weg. Das belegt technische Eigenschaften, keine visuelle Freigabe als natürliches Schauspiel. Die Browser-Abnahme bleibt nach der früheren automatischen Ablehnung wegen des Nutzungslimits offen.
+
+## Synchronisierung 06
+Die fertigen MP3-Dateien wurden dekodiert und mit Rhubarb 1.14.0 / phonetic ausgewertet. M5-Begrüßung: 38 Lautabschnitte. M5-Audiobytes sind unverändert und per SHA256 an die Lautspur gebunden. Kein Wechsel auf eine andere Stimmfarbe. Die Laufzeit verwendet eine gemeinsame Performance-Auswertung aus Audio.currentTime. Pause, Puffern, Seek, Ortsbewegung und Drehung sperren die Sprechspur. Wiederaufnahme folgt derselben Audiozeit. Sprechen startet erst nach der Fußberuhigung. Der Körper dreht sich während der Rede nicht automatisch mit der Kamera. Der erste Begegnungsknopf startet die tatsächliche Aufnahme; es gibt keine separat laufende stumme Begrüßung mehr.
+
+Der Armschwung wird nun von der tatsächlichen relativen Fußposition statt einem eigenen Sinusrhythmus abgeleitet. Frei erzeugte Aufnahmen ohne Lautspur werden nicht mehr mit einer lautstärkegesteuerten Animation als synchronisiert ausgegeben. Im Editor sind diese weiterhin anhör- und herunterladbar; die Übergabe an Kio verlangt eine vorbereitete Lautspur. Der Entwicklungs-CLI kann sie über --rhubarb erzeugen.
+
+17 automatisierte Tests bestehen, einschließlich Pause/Puffern/Seek, gleicher Zeitposition nach Rücksprung, Bewegungssperren, Audiobyte-Identität und Lautspurgrenzen. Das ist eine technische Korrektur. Der Nutzer hat zu Recht die weiterhin unzureichende Gesamtwirkung gemeldet. Gesichtsmodell, Materialität und schauspielerische Natürlichkeit sind nicht als fertig abgenommen.
