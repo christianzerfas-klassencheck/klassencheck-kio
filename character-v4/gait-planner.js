@@ -1,0 +1,12 @@
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)),smooth=t=>t*t*(3-2*t);
+const angle=(a,b)=>Math.atan2(Math.sin(b-a),Math.cos(b-a));
+function world(p,r){const c=Math.cos(r.yaw),s=Math.sin(r.yaw);return{x:r.x+c*p.x+s*p.z,y:r.y+p.y,z:r.z-s*p.x+c*p.z}}
+const distance=(a,b)=>Math.hypot(a.x-b.x,a.z-b.z);
+export function createGaitPlanner(restFeet){let prior=null,pending=0,next=0,first=true,phase=0,active=null;const feet=restFeet.map(p=>({rest:{...p},position:null,yaw:0,pitch:0,planted:true}));
+function init(root){prior={...root};pending=phase=0;next=0;first=true;active=null;for(const foot of feet){foot.position=world(foot.rest,root);foot.yaw=root.yaw;foot.pitch=0;foot.planted=true}}
+return{reset(root){init(root)},update(dt,root,{reduced=false}={}){dt=clamp(Number.isFinite(dt)?dt:0,0,.05);if(!prior)init(root);const dx=root.x-prior.x,dz=root.z-prior.z,ds=Math.hypot(dx,dz),speed=dt?ds/dt:0;pending+=ds;phase+=ds/.65;prior={...root};if(reduced){for(const f of feet){f.position=world(f.rest,root);f.yaw=root.yaw;f.pitch=0;f.planted=true}active=null;pending=0;return{feet:feet.map(f=>({...f,position:{...f.position}})),phase,speed}}
+if(!active){const moving=speed>.025,threshold=first?.12:.29;let selected=-1,target=null;if(moving&&pending>=threshold){selected=next;const f=feet[selected],base=world(f.rest,root),lead=clamp(.075+speed*.2,.10,.22),ux=ds?dx/ds:Math.sin(root.yaw),uz=ds?dz/ds:Math.cos(root.yaw);target={x:base.x+ux*lead,y:base.y,z:base.z+uz*lead};pending=Math.max(0,pending-threshold);next=1-next;first=false}else if(!moving){let worst=.065;for(let i=0;i<feet.length;i++){const f=feet[i],base=world(f.rest,root),error=distance(f.position,base)+Math.abs(angle(f.yaw,root.yaw))*.12;if(error>worst){worst=error;selected=i;target=base}}pending=0;first=true}
+if(selected>=0){const f=feet[selected];active={index:selected,from:{...f.position},to:target,fromYaw:f.yaw,toYaw:root.yaw,elapsed:0,duration:clamp(.4-speed*.08,.30,.40)};f.planted=false}}
+if(active){const f=feet[active.index];active.elapsed+=dt;const t=clamp(active.elapsed/active.duration,0,1),e=smooth(t),arc=Math.sin(Math.PI*t)**2;f.position={x:active.from.x+(active.to.x-active.from.x)*e,y:active.from.y+(active.to.y-active.from.y)*e+.047*arc,z:active.from.z+(active.to.z-active.from.z)*e};f.yaw=active.fromYaw+angle(active.fromYaw,active.toYaw)*e;f.pitch=.13*Math.sin(2*Math.PI*t)*arc;if(t===1){f.position={...active.to};f.yaw=active.toYaw;f.pitch=0;f.planted=true;active=null}}
+return{feet:feet.map(f=>({...f,position:{...f.position}})),phase,speed}}
+}}

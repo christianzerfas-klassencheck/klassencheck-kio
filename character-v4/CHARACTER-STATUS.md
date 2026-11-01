@@ -19,3 +19,8 @@ Automatisierte Prüfungen für Übergänge, Blickbewegung, Gangsteuerung und Rig
 
 ## Herkunft
 Anatomische Basis: dokumentierte CC0-Derivate von MakeHuman; siehe assets/makehuman/PROVENANCE.md, BODY-NEXT-PROVENANCE.md und LICENSE.CC0.txt. Eigene Modellanpassung, Bekleidung, Charaktersteuerung und Szene aus dem KlassenCheck-Projekt. Three.js wird mit fest gepinnter Version 0.169.0 vom CDN geladen (MIT-Lizenz: https://github.com/mrdoob/three.js/blob/r169/LICENSE).
+
+## Bewegungsrevision 05
+M5 wurde vom Nutzer als Stimmfarbe bestätigt und bleibt unverändert. Die Gangsteuerung nutzt nun im Raum fixierte Standfüße, einzeln geplante Schritte mit weichem Anheben und Absetzen, leichtes Fußabrollen in der Schwungphase und eine zur Reichweite passende Kniebeugung. Beim Anhalten setzt Kio die Füße nacheinander zurück. Blick und Körper wenden sich zuerst dem Weg zu; die Fortbewegung beginnt erst nach der Drehung. Drehgeschwindigkeit ist begrenzt. Hüfte, Brustkorb, Arme, Ellenbogen und Handgelenke arbeiten zeitlich versetzt; der Armschwung folgt der tatsächlichen Ortsbewegung. Bei reduzierter Bewegung entfallen diese Zusatzbewegungen.
+
+13 automatisierte Tests bestehen, darunter Standkontakt während Ortsbewegung, Stoppschritte, Drehbegrenzung sowie Rig-Prüfungen bei 30 und 60 Zeitschritten pro Sekunde und auf dem beschleunigten diagonalen Weg. Das belegt technische Eigenschaften, keine visuelle Freigabe als natürliches Schauspiel. Die Browser-Abnahme bleibt nach der früheren automatischen Ablehnung wegen des Nutzungslimits offen.
