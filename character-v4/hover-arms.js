@@ -7,9 +7,9 @@ export function createHoverArms(actor){
  return{update(dt,{gesture=0,reduced=false,present=false}={}){const yaw=actor.scene.rotation.y;const pulse=reduced?0:T.MathUtils.clamp(gesture,0,1);for(const arm of arms){
   arm.upper.getWorldPosition(shoulder);const active=arm.side==='Right'?(present?.7:pulse):pulse*.18;
   // Wrists stay beside the waist, with an elbow bend and room between the hands.
-  wrist.set(arm.sign*(.17+active*.045),1.18+active*.12,.19+active*.065).applyAxisAngle(up,yaw).add(actor.scene.position);
+  wrist.set(arm.sign*(.245+active*.035),1.045+active*.20,.075+active*.14).applyAxisAngle(up,yaw).add(actor.scene.position);
   direction.copy(wrist).sub(shoulder);const distance=T.MathUtils.clamp(direction.length(),.10,arm.l1+arm.l2-.02);direction.normalize();wrist.copy(shoulder).addScaledVector(direction,distance);
-  pole.set(arm.sign*.85,-.1,.35).applyAxisAngle(up,yaw);pole.addScaledVector(direction,-pole.dot(direction)).normalize();const along=(arm.l1*arm.l1-arm.l2*arm.l2+distance*distance)/(2*distance);
+  pole.set(arm.sign*.06,-.05,1).applyAxisAngle(up,yaw);pole.addScaledVector(direction,-pole.dot(direction)).normalize();const along=(arm.l1*arm.l1-arm.l2*arm.l2+distance*distance)/(2*distance);
   elbow.copy(shoulder).addScaledVector(direction,along).addScaledVector(pole,Math.sqrt(Math.max(0,arm.l1*arm.l1-along*along)));
   align(arm.upper,arm.lower.position,elbow);align(arm.lower,arm.hand.position,wrist);
   // Align the actual palm/finger basis with the forearm; the old world-fixed wrist is removed.

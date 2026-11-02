@@ -88,3 +88,14 @@ Auslöser: Nutzer lehnt Hand-/Armwirkung und Kleidung ab, fordert größere Meil
 3. Erste Raumaktion: Nach Begrüßung zum Arbeitstisch schweben, Energie starten. Vier gleich große 3D-Zellen anklicken oder per vier zugänglichen Schaltflächen aktivieren. Ziel drei Viertel, mit Prüfen bestätigen. Fehler unterscheidet zu wenig vs. ganzes Objekt; Erfolg schaltet Konsolenlicht frei. Kio zeigt eine offene Präsentationshaltung; die Geste ist noch kein exakt auf ein Objekt gerichtetes Zeigen. M5 bleibt Begrüßung, keine neue Aufgabenaufnahme vorgetäuscht.
 
 31 technische Tests bestehen: alle 16 Auswahlkombinationen geprüft, Korrektur/Reset, Hand-/Unterarm-Ausrichtung bei drei Körperwinkeln und drei Gestenstärken, Handgröße und Handgelenkhöhe. Browser-Sichtprüfung/Bedienprüfung nicht erfolgt (bestehendes Nutzungslimit). Meilensteine technisch umgesetzt, visuelle Abnahme offen. Neue Tischmission ist eine begrenzte Interaktionsprobe, kein vollständiger Grundkurs. Haupt-Lernwelt/Testkohorte unverändert.
+
+
+## Revision 12 — Gegen V-Haltung und räumliche Neuausrichtung
+
+Nutzerbefund: V-förmige Armhaltung, Gesamtbewegung und Welten weiterhin nicht auf Zielniveau. Arme nun seitlich statt vor Bauchmitte: neutrale Handgelenke bei x ±0,245 m, y 1,045 m; Ellbogenpol hauptsächlich sagittal statt weit nach außen. Test gegen erneutes Zusammenziehen in Körpermitte bei drei Ausrichtungen. Keine Freigabe als natürliche Bewegung.
+
+Altes kastenförmiges Atelier ersetzt durch drei umschaltbare 3D-Raumvarianten: Observatorium mit gebogener Panoramastruktur, Planet und Sternpunkten; Dachgarten mit Pflanztrögen, Pergola und Stadtsilhouette; Energiekammer mit Portalringen und Kern. Gemeinsame Lernplattform, Lichtweg und moderne zentrale Konsole bleiben beim Wechsel erhalten. Umgebungswechsel unter Mehr > Welt. Energielicht reagiert auf Missionserfolg. Alle Varianten verwenden vorerst dieselbe Viertelmission, keine Behauptung zusätzlicher Grundkurse.
+
+Oberfläche neu gestaltet: dunkle, kontrastreiche kompakte Aktionskarte, ruhige Typografie, begrenzte Textbreite, responsiver Rand und Schaltflächen. Keine Bild-/Modell-Zukäufe. M5 und Haupt-Testfassung unverändert.
+
+34 technische Tests bestehen. Weltgeometrie, exklusiver Weltenwechsel, reduzierte Animation und Arm-Separation geprüft. Browser-Sicht-/Hörprüfung und gestalterische Abnahme weiterhin offen wegen des zuvor erreichten Nutzungslimits. Meilenstein ist eine neue überprüfbare räumliche Basis; AAA-Qualität oder ein Quantensprung sind nicht als erreicht zu bezeichnen.

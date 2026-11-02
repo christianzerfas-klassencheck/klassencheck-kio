@@ -1,6 +1,6 @@
 import * as T from 'three';
 import{buildKioActor}from'./kio-actor.js?v=10';
-import{createHoverArms}from'./hover-arms.js?v=11';
+import{createHoverArms}from'./hover-arms.js?v=12';
 export function buildHoverActor(){
  const actor=buildKioActor();
  // Remove the old utility-jacket fittings: zipper, standing collar, pockets and wrist cylinders.
