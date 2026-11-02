@@ -99,3 +99,13 @@ Altes kastenförmiges Atelier ersetzt durch drei umschaltbare 3D-Raumvarianten: 
 Oberfläche neu gestaltet: dunkle, kontrastreiche kompakte Aktionskarte, ruhige Typografie, begrenzte Textbreite, responsiver Rand und Schaltflächen. Keine Bild-/Modell-Zukäufe. M5 und Haupt-Testfassung unverändert.
 
 34 technische Tests bestehen. Weltgeometrie, exklusiver Weltenwechsel, reduzierte Animation und Arm-Separation geprüft. Browser-Sicht-/Hörprüfung und gestalterische Abnahme weiterhin offen wegen des zuvor erreichten Nutzungslimits. Meilenstein ist eine neue überprüfbare räumliche Basis; AAA-Qualität oder ein Quantensprung sind nicht als erreicht zu bezeichnen.
+
+
+
+## Revision 13 — Bildreferenz als gemeinsame Gestaltung
+
+Nutzer gibt warm ausgearbeitete Illustration als Referenz für Kio, Räume und Welten vor und autorisiert Umsetzung. Neue Referenz hat Vorrang vor früherem Wunsch nach rein realistischer Darstellung. Personen aus dem privaten Bild werden weder kopiert noch öffentlich eingebaut.
+
+Umgesetzt: gemeinsamer illustrativer Materialdurchlauf auf vorhandener 3D-Geometrie; animierte Konturen für Gesicht/Jacke; feine Architekturkonturen; wärmere Palette in allen drei Welten; Creme/Petrol/Koralle für Stoff, warme Hautabstimmung von Gesicht/Hals/Händen, Augenreflexe, freundlichere Grundmimik, vollere Haarsträhnen. Heller abgestimmte Aktionskarte. Bewegung, Drehung, Mundspur und M5-Aufnahme bleiben erhalten.
+
+37 technische Tests bestehen. Neue Prüfungen: Konturen teilen Skelett/Mundkanäle mit Figur; unterer Jackenverlauf bleibt erhalten; Shader-Hooks passen zur installierten Three-Version; Architekturkonturen sind begrenzt und Fenster ausgenommen. Quellgeometrie stimmt über Git-Objekthashes mit Repository überein. Keine GPU-Kompilierung/Browser-Sichtprüfung, da bisheriges Browserlimit besteht. Keine Behauptung, die Bildreferenz visuell bereits erreicht zu haben. Weitere Gestaltungsdetails und Grenzen stehen in ART-DIRECTION.md. Haupt-Schülertestfassung unverändert.

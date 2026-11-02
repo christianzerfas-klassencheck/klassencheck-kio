@@ -2,8 +2,8 @@ import * as T from'three';
 export function buildLearningWorlds(scene){
  const root=new T.Group();root.name='LearningWorlds';scene.add(root);const worlds=[],names=['Observatorium','Dachgarten','Energiekammer'];let selected=0,time=0;
  const material=(color,metalness=0,roughness=.7)=>new T.MeshStandardMaterial({color,metalness,roughness});
- const pale=material('#d4d8d2'),ink=material('#1d303c',.25),metal=material('#627f87',.5,.35),wood=material('#947a60');
- const glow=color=>new T.MeshStandardMaterial({color,emissive:color,emissiveIntensity:1.5,roughness:.4});const cyan=glow('#66c9cf'),amber=glow('#eda578');
+ const pale=material('#e6d8c0'),ink=material('#514753',.25),metal=material('#7b9492',.5,.35),wood=material('#b48764');
+ const glow=color=>new T.MeshStandardMaterial({color,emissive:color,emissiveIntensity:1.5,roughness:.4});const cyan=glow('#9cc9b9'),amber=glow('#eda578');
  function mesh(g,m,parent,x=0,y=0,z=0){const o=new T.Mesh(g,m);o.position.set(x,y,z);o.castShadow=o.receiveShadow=true;parent.add(o);return o}
  const box=(p,w,h,d,x,y,z,m)=>mesh(new T.BoxGeometry(w,h,d),m,p,x,y,z);
  const tube=(p,points,r,m)=>mesh(new T.TubeGeometry(new T.CatmullRomCurve3(points.map(a=>new T.Vector3(...a))),64,r,8,false),m,p);
@@ -29,8 +29,9 @@ export function buildLearningWorlds(scene){
  for(let i=0;i<3;i++){const r=mesh(new T.TorusGeometry(1.3+i*.25,.065,12,80),i===1?amber:metal,energy,0,2.1,-4-i*.3);r.rotation.y=i*.16;rings.push(r)}
  for(const x of[-3.5,3.5]){box(energy,.8,3.7,.9,x,1.7,-3.8,ink);box(energy,.055,2.8,.06,x,1.8,-3.3,cyan)}
  const core=mesh(new T.IcosahedronGeometry(.43,2),cyan,energy,0,2.1,-4.3);const energyLight=new T.PointLight('#61cadb',3,9);energyLight.position.set(0,2.1,-3);energy.add(energyLight);
- const palettes=[['#0d1d30','#d1e0e5'],['#6d929a','#e5eedf'],['#111b2b','#bacfdc']];
+ const palettes=[['#b5a79b','#d1e0e5'],['#b5c6bc','#e5eedf'],['#655e79','#bacfdc']];
  function choose(i){selected=((i%worlds.length)+worlds.length)%worlds.length;worlds.forEach((w,k)=>w.visible=k===selected);scene.background=new T.Color(palettes[selected][0]);scene.fog=new T.Fog(palettes[selected][0],12,25);return names[selected]}
  choose(0);
  return{next(){return choose(selected+1)},get name(){return names[selected]},update(dt,{reduced=false,completed=false}={}){time+=Math.min(.05,Math.max(0,dt));if(!reduced&&selected===2){core.rotation.y=time*.18;rings[1].rotation.z=time*.08}energyLight.intensity=completed?5:3;rim.material.emissiveIntensity=completed?2:1.3;},root};
 }
+

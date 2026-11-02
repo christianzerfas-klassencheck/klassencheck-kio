@@ -1,5 +1,5 @@
 import * as T from 'three';
-import{buildKioNext}from'./avatar-next.js?v=10';
+import{buildKioNext}from'./avatar-next.js?v=13';
 // Transitional rig for performance validation. Not the approved production mesh.
 export function buildKioActor(){
  const actor=buildKioNext(),face=actor.face,g=face.geometry,p=g.getAttribute('position'),wide=[],round=[];
@@ -12,4 +12,5 @@ export function buildKioActor(){
  actor.setExpression=(values={})=>{originalExpression(values);face.morphTargetInfluences[4]=T.MathUtils.clamp(values.warmth||0,0,1);face.morphTargetInfluences[5]=T.MathUtils.clamp(values.focus||0,0,1);for(let i=0;i<2;i++){const brow=actor.scene.getObjectByName('KioBrow'+i);if(brow){brow.position.y=(values.warmth||0)*.002-(values.focus||0)*.001;brow.rotation.z=(i===0?-1:1)*((values.warmth||0)*.035+(values.focus||0)*.02)}}};
  actor.scene.name='Kio_Performance_Proxy';return actor;
 }
+
 

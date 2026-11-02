@@ -1,6 +1,6 @@
 import * as T from 'three';
 import {bodyNextData as data} from './assets/makehuman/body-next-data.js';
-import {buildHumanHead} from './human-head.js?v=10';
+import {buildHumanHead} from './human-head.js?v=13';
 import {buildHumanHand} from './human-hand.js';
 import {handData} from './assets/makehuman/hand-data.js';
 import {headData} from './assets/makehuman/head-data.js';
@@ -31,11 +31,11 @@ export function buildKioNext(){
  face.geometry.morphAttributes.position=[new T.Float32BufferAttribute(mouth,3),new T.Float32BufferAttribute(smile,3)];face.geometry.morphTargetsRelative=true;face.updateMorphTargets();face.morphTargetDictionary={mouthOpen:0,smile:1};face.name='KioFaceSurface';
  // Small mouth cavity, visible only while testing an open jaw. Not phoneme lip-sync.
  const cavity=new T.Mesh(new T.SphereGeometry(1,20,10),mat('#51332e',.92));cavity.position.set(0,-.047,.1005);cavity.scale.set(.018,.001,.0017);cavity.visible=false;head.root.add(cavity);
- const scalp=head.root.getObjectByName('KioScalp');if(scalp){const hp=[],ids=[],normal=face.geometry.getAttribute('normal');const hairline=i=>{const x=attr.getX(i),y=attr.getY(i),z=attr.getZ(i);return y>(z>.045?.105+Math.sin(x*20)*.003:Math.abs(x)>.06?.067:.075)};for(let i=0;i<headData.indices.length;i+=3){const triangle=headData.indices.slice(i,i+3);if(!triangle.every(hairline))continue;for(const vi of triangle){hp.push(attr.getX(vi)+normal.getX(vi)*.0035,attr.getY(vi)+normal.getY(vi)*.0035,attr.getZ(vi)+normal.getZ(vi)*.0035);ids.push(ids.length)}}const hg=new T.BufferGeometry();hg.setAttribute('position',new T.Float32BufferAttribute(hp,3));hg.setIndex(ids);hg.computeVertexNormals();scalp.geometry.dispose();scalp.geometry=hg;scalp.material.color.set('#45352b');}const hairMats=['#382b23','#4b382b','#5c4533'].map(c=>mat(c,.94));
+ const scalp=head.root.getObjectByName('KioScalp');if(scalp){const hp=[],ids=[],normal=face.geometry.getAttribute('normal');const hairline=i=>{const x=attr.getX(i),y=attr.getY(i),z=attr.getZ(i);return y>(z>.045?.105+Math.sin(x*20)*.003:Math.abs(x)>.06?.067:.075)};for(let i=0;i<headData.indices.length;i+=3){const triangle=headData.indices.slice(i,i+3);if(!triangle.every(hairline))continue;for(const vi of triangle){hp.push(attr.getX(vi)+normal.getX(vi)*.0035,attr.getY(vi)+normal.getY(vi)*.0035,attr.getZ(vi)+normal.getZ(vi)*.0035);ids.push(ids.length)}}const hg=new T.BufferGeometry();hg.setAttribute('position',new T.Float32BufferAttribute(hp,3));hg.setIndex(ids);hg.computeVertexNormals();scalp.geometry.dispose();scalp.geometry=hg;scalp.material.color.set('#45352b');}const hairMats=['#493127','#684831','#896143'].map(c=>mat(c,.94));
  // Deterministic strands fitted to the actual cranial surface, without floating tips.
  const scalpPoints=[];for(let i=0;i<headData.positions.length;i+=3)if(headData.positions[i+1]>.075)scalpPoints.push(headData.positions.slice(i,i+3));
  function scalpHeight(x,z){let best=Infinity,y=.12;for(const p of scalpPoints){const dist=(p[0]-x)**2+(p[2]-z)**2;if(dist<best){best=dist;y=p[1]}}return y+.003;}
- for(let i=0;i<54;i++){const x=-.065+i/53*.130,points=[];for(let j=0;j<9;j++){const z=.068-j*.017;const px=x+Math.sin(j/8*Math.PI)*.005;points.push([px,scalpHeight(px,z),z]);}curve(points,.0011+(i%3)*.00015,hairMats[i%3],head.root)}
+ for(let i=0;i<32;i++){const x=-.065+i/31*.130,points=[];for(let j=0;j<9;j++){const z=.068-j*.017;const px=x+Math.sin(j/8*Math.PI)*.005;points.push([px,scalpHeight(px,z),z]);}curve(points,.0018+(i%3)*.00018,hairMats[i%3],head.root)}
  for(const sign of[-1,1]){const points=[];for(let j=0;j<8;j++){const x=sign*(.014+j*.0055),y=.058+Math.sin(j/7*Math.PI)*.005;let z=.09,dist=Infinity;for(let k=0;k<headData.positions.length;k+=3){const d=(headData.positions[k]-x)**2+(headData.positions[k+1]-y)**2;if(headData.positions[k+2]>.06&&d<dist){dist=d;z=headData.positions[k+2]+.0016}}points.push([x,y,z]);}curve(points,.0008,hairMats[1],head.root)}
  const clips=[],qtrack=(name,times,angles,axis='x')=>new T.QuaternionKeyframeTrack(name+'.quaternion',times,angles.flatMap(a=>new T.Quaternion().setFromEuler(new T.Euler(axis==='x'?a:0,axis==='y'?a:0,axis==='z'?a:0)).toArray()));
  const hp=data.joints.Hips,armRest=[qtrack('LeftArm',[0,1,2],[-.45,-.43,-.45],'z'),qtrack('RightArm',[0,1,2],[.45,.43,.45],'z')];
@@ -48,4 +48,5 @@ export function buildKioNext(){
  root.userData={dynamic:true,quality:'Anatomically shaped development revision B; visual production acceptance pending',source:'Pinned CC0 MakeHuman asset data; original clothing adaptation, rig, hair details and clips'};
  return{scene:root,bones:map,skeleton,animations:clips,expression,setExpression,face,hands,setHandPose(name='relaxed',blend=1){hands.forEach(h=>h.pose(name,blend))},dispose(){root.traverse(m=>{m.geometry?.dispose()})}};
 }
+
 

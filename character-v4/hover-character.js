@@ -1,12 +1,12 @@
 import * as T from 'three';
-import{buildKioActor}from'./kio-actor.js?v=10';
+import{buildKioActor}from'./kio-actor.js?v=13';
 import{createHoverArms}from'./hover-arms.js?v=12';
 export function buildHoverActor(){
  const actor=buildKioActor();
  // Remove the old utility-jacket fittings: zipper, standing collar, pockets and wrist cylinders.
  for(const name of['Chest','Spine','LeftHand','RightHand'])for(const child of actor.bones[name].children){if(child.isMesh&&!child.name)child.visible=false}
- for(const side of['Left','Right']){const mesh=actor.scene.getObjectByName(side+'AnatomicalHand');mesh.parent.scale.multiplyScalar(.88);mesh.material.color.set('#c69b81')}
- const collar=new T.Mesh(new T.TorusGeometry(.067,.007,10,48),new T.MeshStandardMaterial({color:'#214d54',roughness:.95}));collar.rotation.x=Math.PI/2;collar.scale.y=.86;collar.position.set(0,.1516,.0758);actor.bones.Chest.add(collar);
+ for(const side of['Left','Right']){const mesh=actor.scene.getObjectByName(side+'AnatomicalHand');mesh.parent.scale.multiplyScalar(.88);mesh.material.color.set('#d2a080')}
+ const collar=new T.Mesh(new T.TorusGeometry(.067,.007,10,48),new T.MeshStandardMaterial({color:'#3d625e',roughness:.95}));collar.rotation.x=Math.PI/2;collar.scale.y=.86;collar.position.set(0,.1516,.0758);actor.bones.Chest.add(collar);
  const badge=new T.Mesh(new T.CircleGeometry(.027,32),new T.MeshStandardMaterial({color:'#ef9c73',roughness:.55,side:T.DoubleSide}));
  const chest=actor.bones.Chest;badge.position.set(.09,.028,.17);chest.add(badge);
  const mark=new T.Mesh(new T.ConeGeometry(.009,.028,3),new T.MeshStandardMaterial({color:'#223554',roughness:.7}));mark.rotation.z=-.35;mark.position.set(.09,.03,.174);chest.add(mark);
@@ -15,12 +15,12 @@ export function buildHoverActor(){
  for(const side of['Left','Right'])for(const child of actor.bones[side+'Foot'].children)child.visible=false;
  const jacket=actor.scene.getObjectByName('Kio_jacket');
  const positions=jacket.geometry.getAttribute('position'),colors=[];let badgeZ=.12;
- const cloth=new T.Color('#dce3de'),yoke=new T.Color('#28535a'),seam=new T.Color('#e6a17c');for(let i=0;i<positions.count;i++){const x=positions.getX(i),y=positions.getY(i),z=positions.getZ(i);const shoulder=y>1.405||(Math.abs(x)>.23&&y>1.20);const stripe=z>.075&&x<-.08&&x>-.095&&y>1.18&&y<1.405;colors.push(...(stripe?seam:shoulder?yoke:cloth).toArray());if(Math.abs(x-.09)<.035&&Math.abs(y-1.391)<.035)badgeZ=Math.max(badgeZ,z)}
+ const cloth=new T.Color('#eee0c8'),yoke=new T.Color('#527c79'),seam=new T.Color('#d89471');for(let i=0;i<positions.count;i++){const x=positions.getX(i),y=positions.getY(i),z=positions.getZ(i);const shoulder=y>1.405||(Math.abs(x)>.23&&y>1.20);const stripe=z>.075&&x<-.08&&x>-.095&&y>1.18&&y<1.405;colors.push(...(stripe?seam:shoulder?yoke:cloth).toArray());if(Math.abs(x-.09)<.035&&Math.abs(y-1.391)<.035)badgeZ=Math.max(badgeZ,z)}
  jacket.geometry.setAttribute('color',new T.Float32BufferAttribute(colors,3));badge.position.z=badgeZ+.0468;mark.position.z=badge.position.z+.004;badge.scale.setScalar(.8);mark.scale.setScalar(.8);
  jacket.material=jacket.material.clone();jacket.material.color.set('#ffffff');jacket.material.roughness=.94;jacket.material.transparent=true;jacket.material.alphaTest=.02;jacket.material.vertexColors=true;
  jacket.material.onBeforeCompile=shader=>{shader.vertexShader='varying float kioHeight;\n'+shader.vertexShader;shader.vertexShader=shader.vertexShader.replace('#include <skinning_vertex>','#include <skinning_vertex>\nkioHeight=transformed.y;');shader.fragmentShader='varying float kioHeight;\n'+shader.fragmentShader;shader.fragmentShader=shader.fragmentShader.replace('#include <alphatest_fragment>','diffuseColor.a *= smoothstep(.985,1.12,kioHeight);\n#include <alphatest_fragment>')};
  jacket.material.customProgramCacheKey=()=> 'kio-hover-waist-v9';jacket.castShadow=false;
- const glow=new T.MeshBasicMaterial({color:'#88c7ed',transparent:true,opacity:.26,depthWrite:false});
+ const glow=new T.MeshBasicMaterial({color:'#e5bd8c',transparent:true,opacity:.26,depthWrite:false});
  const halo=new T.Mesh(new T.TorusGeometry(.17,.006,8,64),glow);halo.rotation.x=Math.PI/2;halo.position.set(0,.96,.01);actor.scene.add(halo);
  const tail=new T.Mesh(new T.ConeGeometry(.14,.22,32,1,true),glow.clone());tail.rotation.z=Math.PI;tail.position.set(0,.87,.01);tail.material.opacity=.07;tail.material.side=T.DoubleSide;actor.scene.add(tail);
  actor.scene.name='Kio_Hover_Companion';return actor;
@@ -41,3 +41,4 @@ export function createHoverMotion(actor){
 }
 
 export const turnToward=(a,b,dt)=>{dt=Math.min(.05,Math.max(0,Number.isFinite(dt)?dt:0));const delta=Math.atan2(Math.sin(b-a),Math.cos(b-a));return a+T.MathUtils.clamp(delta*(1-Math.exp(-5*dt)),-1.8*dt,1.8*dt)};
+
