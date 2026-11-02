@@ -1,6 +1,6 @@
 import * as T from 'three';
 import {bodyNextData as data} from './assets/makehuman/body-next-data.js';
-import {buildHumanHead} from './human-head.js';
+import {buildHumanHead} from './human-head.js?v=7';
 import {buildHumanHand} from './human-hand.js';
 import {handData} from './assets/makehuman/hand-data.js';
 import {headData} from './assets/makehuman/head-data.js';
@@ -48,3 +48,4 @@ export function buildKioNext(){
  root.userData={dynamic:true,quality:'Anatomically shaped development revision B; visual production acceptance pending',source:'Pinned CC0 MakeHuman asset data; original clothing adaptation, rig, hair details and clips'};
  return{scene:root,bones:map,skeleton,animations:clips,expression,setExpression,face,hands,setHandPose(name='relaxed',blend=1){hands.forEach(h=>h.pose(name,blend))},dispose(){root.traverse(m=>{m.geometry?.dispose()})}};
 }
+

@@ -31,3 +31,24 @@ Die fertigen MP3-Dateien wurden dekodiert und mit Rhubarb 1.14.0 / phonetic ausg
 Der Armschwung wird nun von der tatsächlichen relativen Fußposition statt einem eigenen Sinusrhythmus abgeleitet. Frei erzeugte Aufnahmen ohne Lautspur werden nicht mehr mit einer lautstärkegesteuerten Animation als synchronisiert ausgegeben. Im Editor sind diese weiterhin anhör- und herunterladbar; die Übergabe an Kio verlangt eine vorbereitete Lautspur. Der Entwicklungs-CLI kann sie über --rhubarb erzeugen.
 
 17 automatisierte Tests bestehen, einschließlich Pause/Puffern/Seek, gleicher Zeitposition nach Rücksprung, Bewegungssperren, Audiobyte-Identität und Lautspurgrenzen. Das ist eine technische Korrektur. Der Nutzer hat zu Recht die weiterhin unzureichende Gesamtwirkung gemeldet. Gesichtsmodell, Materialität und schauspielerische Natürlichkeit sind nicht als fertig abgenommen.
+
+
+
+## Revision 07 — Gang und Präsenz (02.11.2026)
+
+Nutzerbefund: Gehen wirkt wie Nach-vorne-Fallen. Ursache in der Kinematik nachgestellt: Auf einer 2,05-m-Cosinusroute über 4,8 s lief die Hüfte zeitweise 22,8 cm vor beiden Knöcheln; Hüfthöhe sank bis 87,5 cm.
+
+Korrektur: frühes erstes Umsetzen, geschwindigkeitsabhängiger Schrittwechsel, vorausberechneter Landepunkt, kürzere Schwungphase, kleinere Fußhebung und schmalere Spur. Zusätzliche Vorneigung der Wirbelsäule entfällt, Absenkung der Hüfte reduziert. Fußkontakte bleiben weltfest. Gleiche Route nach Korrektur: maximal 1,8 cm (30 FPS) / 2,3 cm (60 FPS) Hüftvorlauf; minimale Hüfthöhe 96,7 cm. Knöchelgrenzen sind technische Indikatoren, keine vollständige biomechanische Stabilitätsprüfung.
+
+Präsenz: Augen führen den Blick, Kopf und Brustkorb folgen zeitversetzt. Blick kehrt nach Mausruhe zur Kamera zurück. Während Drehung/Gang keine zusätzliche Brustdrehung. Augen drehen um ihren Mittelpunkt; zurückhaltende Wangen-/Brauenformen ergänzen die bisherigen Mundformen. M5-Audiodaten unverändert.
+
+22 automatisierte Tests inklusive Standbein-Kontakt, Gang-Kollaps, FPS-Vergleich, Gesichtskanal-Reset und reduzierter Bewegung. Browser-Sichtprüfung weiterhin offen (vorheriges Nutzungslimit). Keine Freigabe als natürlicher oder finaler Charakter.
+
+## Weiterarbeit ohne ausstehende Testergebnisse
+
+1. Gangfehler beheben und Rückfallprüfung aufnehmen — Revision 07 umgesetzt.
+2. Blick und Gesicht als gemeinsame Darstellung koordinieren — Revision 07 technische Basis umgesetzt, visuelle Abnahme offen.
+3. Rauminteraktion (echtes Zeigen, Hinsehen, Greifen an Objekten) — offen, erfordert passende Bewegungen und Kontaktziele.
+4. Lernmissionen und mathematische Richtigkeit — eigenständiger nächster Arbeitsblock; durch diese Revision nicht verändert oder neu bestätigt.
+5. Testfeedback P1–P5 — ausstehend; Schüler-Testfassung unverändert lassen, keine Rückmeldungen erfinden.
+6. Produktionsmodell mit detaillierter Gesichtssteuerung und hochwertigen Bewegungsdaten — weiterhin nötig für den angestrebten Realismus.
