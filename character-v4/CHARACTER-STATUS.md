@@ -52,3 +52,10 @@ Präsenz: Augen führen den Blick, Kopf und Brustkorb folgen zeitversetzt. Blick
 4. Lernmissionen und mathematische Richtigkeit — eigenständiger nächster Arbeitsblock; durch diese Revision nicht verändert oder neu bestätigt.
 5. Testfeedback P1–P5 — ausstehend; Schüler-Testfassung unverändert lassen, keine Rückmeldungen erfinden.
 6. Produktionsmodell mit detaillierter Gesichtssteuerung und hochwertigen Bewegungsdaten — weiterhin nötig für den angestrebten Realismus.
+
+
+## Revision 08 — Arm-/Beinkoordination
+
+Nutzerbefund: Beine und Arme/Hände passen nicht zusammen. Schulter-Eulerwinkel allein ignorierten die vorgebogene Bind-Pose des Arms. Neue Zweigelenk-Armführung mit Handziel aus dem jeweils gegenüberliegenden Fuß. Ellbogen beugen nach vorn mit geringer seitlicher Öffnung; Handgelenk wird von der Ellbogendrehung entkoppelt. Arme blenden beim Start/Stop aus der Ruhehaltung ein/aus. Brust-Gegendrehung zum Becken verstärkt. Gesicht, Audio und Fußkontaktplanung bleiben unverändert.
+
+23 technische Tests bestehen, darunter neue Prüfung tatsächlicher Hand-/Ellbogenpositionen bei beiden Schrittseiten und drei Körperausrichtungen. Diese Prüfung belegt die kontralaterale Zuordnung und Gelenkreichen, keine menschliche Wahrnehmungsqualität. Sichtprüfung wegen des zuvor erreichten Browserlimits offen; keine finale Animationsfreigabe.
