@@ -1,6 +1,6 @@
 import * as T from 'three';
 import {bodyNextData as data} from './assets/makehuman/body-next-data.js';
-import {buildHumanHead} from './human-head.js?v=7';
+import {buildHumanHead} from './human-head.js?v=10';
 import {buildHumanHand} from './human-hand.js';
 import {handData} from './assets/makehuman/hand-data.js';
 import {headData} from './assets/makehuman/head-data.js';

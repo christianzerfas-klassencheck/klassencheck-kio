@@ -68,3 +68,12 @@ Nutzer bewertet Revision 08 als schlechter; Gang und Gesamtkoerper wirken weiter
 Umgesetzt: Hosen- und Fußoberflächen ausgeblendet, weicher auslaufender Jackenabschluss per Shader, dezenter Leuchtring und Schweif. Eigene Oberkörpersteuerung statt Gangplaner: ruhige Haltung, gedämpfte Blickbewegung, kleine audiozeitgebundene Handgeste. Keine Beinansteuerung, keine schrittabhängigen Armbewegungen. Eigene 3,2-s-Schwebefahrt mit quintischer Beschleunigung/Abbremsung; näherer Kameraausschnitt. M5-Audio unverändert.
 
 25 technische Tests: untere Körperoberflächen unsichtbar; Gelenke endlich; keine Beinrotation während Translation; reduzierte Bewegung beendet Schweben; monotone Schwebekurve mit ruhigem Start/Stop. Shader und visuelle Wirkung noch nicht im Browser geprüft (bestehendes Nutzungslimit); keine visuelle Freigabe. Haupt-Lernwelt und P1–P5 bleiben unverändert.
+
+
+## Revision 10 — Drehung und Charaktergestaltung
+
+Automatisch: Blick führt zur Bewegungsrichtung; Körper dreht vor Abfahrt; nach Ankunft Rückwendung zum Betrachter. Manuell über Mehr: links/rechts um 90 Grad, zur Kamera ausrichten. Manuelle Ausrichtung wird gehalten. Begrenzte Drehgeschwindigkeit, kürzester Winkelweg, leichte Körperneigung und versetzte Brustdrehung. Pause hält Bewegung an; reduzierte Bewegung überspringt Drehanimation.
+
+Gestaltung: dunkelblaue Jacke, Schulterakzent, hellere Metallteile, eigenes korallfarbenes Kompasszeichen. Sanft schmalere untere Gesichtsform, leicht ausgearbeitete Wangen, natürliche Hautabstimmung mit Hals/Händen, hellere grüngraue Iris. Blauer Lichtschweif. Keine neue Stimme.
+
+27 technische Tests bestehen. Visueller Browsercheck und ästhetische Abnahme weiterhin offen wegen des bestehenden Browserlimits. Figur ist eine Weiterentwicklung der vorhandenen Geometrie, kein neu produziertes fotorealistisches Modell.

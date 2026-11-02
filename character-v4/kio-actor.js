@@ -1,5 +1,5 @@
 import * as T from 'three';
-import{buildKioNext}from'./avatar-next.js?v=7';
+import{buildKioNext}from'./avatar-next.js?v=10';
 // Transitional rig for performance validation. Not the approved production mesh.
 export function buildKioActor(){
  const actor=buildKioNext(),face=actor.face,g=face.geometry,p=g.getAttribute('position'),wide=[],round=[];
