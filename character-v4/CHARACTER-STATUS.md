@@ -59,3 +59,12 @@ Präsenz: Augen führen den Blick, Kopf und Brustkorb folgen zeitversetzt. Blick
 Nutzerbefund: Beine und Arme/Hände passen nicht zusammen. Schulter-Eulerwinkel allein ignorierten die vorgebogene Bind-Pose des Arms. Neue Zweigelenk-Armführung mit Handziel aus dem jeweils gegenüberliegenden Fuß. Ellbogen beugen nach vorn mit geringer seitlicher Öffnung; Handgelenk wird von der Ellbogendrehung entkoppelt. Arme blenden beim Start/Stop aus der Ruhehaltung ein/aus. Brust-Gegendrehung zum Becken verstärkt. Gesicht, Audio und Fußkontaktplanung bleiben unverändert.
 
 23 technische Tests bestehen, darunter neue Prüfung tatsächlicher Hand-/Ellbogenpositionen bei beiden Schrittseiten und drei Körperausrichtungen. Diese Prüfung belegt die kontralaterale Zuordnung und Gelenkreichen, keine menschliche Wahrnehmungsqualität. Sichtprüfung wegen des zuvor erreichten Browserlimits offen; keine finale Animationsfreigabe.
+
+
+## Revision 09 — Richtungswechsel: schwebender Oberkörper
+
+Nutzer bewertet Revision 08 als schlechter; Gang und Gesamtkoerper wirken weiterhin unpassend. Neuer ausdrücklicher Ansatz: menschlicher Kopf und Oberkörper als schwebender Begleiter, geisterartig. Kein weiterer Anspruch, den Laufstil mit dieser Variante zu beheben.
+
+Umgesetzt: Hosen- und Fußoberflächen ausgeblendet, weicher auslaufender Jackenabschluss per Shader, dezenter Leuchtring und Schweif. Eigene Oberkörpersteuerung statt Gangplaner: ruhige Haltung, gedämpfte Blickbewegung, kleine audiozeitgebundene Handgeste. Keine Beinansteuerung, keine schrittabhängigen Armbewegungen. Eigene 3,2-s-Schwebefahrt mit quintischer Beschleunigung/Abbremsung; näherer Kameraausschnitt. M5-Audio unverändert.
+
+25 technische Tests: untere Körperoberflächen unsichtbar; Gelenke endlich; keine Beinrotation während Translation; reduzierte Bewegung beendet Schweben; monotone Schwebekurve mit ruhigem Start/Stop. Shader und visuelle Wirkung noch nicht im Browser geprüft (bestehendes Nutzungslimit); keine visuelle Freigabe. Haupt-Lernwelt und P1–P5 bleiben unverändert.
