@@ -77,3 +77,14 @@ Automatisch: Blick führt zur Bewegungsrichtung; Körper dreht vor Abfahrt; nach
 Gestaltung: dunkelblaue Jacke, Schulterakzent, hellere Metallteile, eigenes korallfarbenes Kompasszeichen. Sanft schmalere untere Gesichtsform, leicht ausgearbeitete Wangen, natürliche Hautabstimmung mit Hals/Händen, hellere grüngraue Iris. Blauer Lichtschweif. Keine neue Stimme.
 
 27 technische Tests bestehen. Visueller Browsercheck und ästhetische Abnahme weiterhin offen wegen des bestehenden Browserlimits. Figur ist eine Weiterentwicklung der vorhandenen Geometrie, kein neu produziertes fotorealistisches Modell.
+
+
+## Revision 11 — Oberkörper-Rig, Kleidung und Raumaktion
+
+Auslöser: Nutzer lehnt Hand-/Armwirkung und Kleidung ab, fordert größere Meilensteine.
+
+1. Eigenes Oberkörper-Arm-Rig ohne Gang/Fuß-Ersatzsignale. Handgelenke neben Taille auf 1,18 m, leicht gebeugte Arme; kleine einladende Geste hebt die rechte Hand. Anatomische Fingerrichtung wird mit dem Unterarm ausgerichtet statt Weltrotation zu fixieren. Handhalter auf 88 % skaliert. Alte Lauf-Module bleiben nur für bisherige Tests/Versionen erhalten und steuern die Schwebevariante nicht mehr.
+2. Kleidungsumbau: alte Reißverschluss-, Taschen-, Stehkragen- und Bündchenanbauten ausgeblendet. Heller Stoff, dunkle Schulter-/Ärmelpartien, Rundhalsausschnitt, dezente Naht und kleines Kompasszeichen. Vorhandene Jacken-Grundgeometrie weiterverwendet; kein neues hochwertiges Textilmodell.
+3. Erste Raumaktion: Nach Begrüßung zum Arbeitstisch schweben, Energie starten. Vier gleich große 3D-Zellen anklicken oder per vier zugänglichen Schaltflächen aktivieren. Ziel drei Viertel, mit Prüfen bestätigen. Fehler unterscheidet zu wenig vs. ganzes Objekt; Erfolg schaltet Konsolenlicht frei. Kio zeigt eine offene Präsentationshaltung; die Geste ist noch kein exakt auf ein Objekt gerichtetes Zeigen. M5 bleibt Begrüßung, keine neue Aufgabenaufnahme vorgetäuscht.
+
+31 technische Tests bestehen: alle 16 Auswahlkombinationen geprüft, Korrektur/Reset, Hand-/Unterarm-Ausrichtung bei drei Körperwinkeln und drei Gestenstärken, Handgröße und Handgelenkhöhe. Browser-Sichtprüfung/Bedienprüfung nicht erfolgt (bestehendes Nutzungslimit). Meilensteine technisch umgesetzt, visuelle Abnahme offen. Neue Tischmission ist eine begrenzte Interaktionsprobe, kein vollständiger Grundkurs. Haupt-Lernwelt/Testkohorte unverändert.

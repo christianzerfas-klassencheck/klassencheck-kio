@@ -1,2 +1,2 @@
-{"name": "klassencheck-kio-character", "private": true, "type": "module", "scripts": {"test": "node --test character-state.test.mjs character-rig.test.mjs audio-core.test.mjs gait-planner.test.mjs performance-sync.test.mjs presence-controller.test.mjs hover-character.test.mjs"}, "devDependencies": {"three": "0.169.0"}}
+{"name": "klassencheck-kio-character", "private": true, "type": "module", "scripts": {"test": "node --test character-state.test.mjs character-rig.test.mjs audio-core.test.mjs gait-planner.test.mjs performance-sync.test.mjs presence-controller.test.mjs hover-character.test.mjs fraction-console.test.mjs"}, "devDependencies": {"three": "0.169.0"}}
 
