@@ -23,3 +23,6 @@ Stand: 2026-11-03
 
 ## Dokumentationsregel
 Diese Datei ist der zentrale, zuletzt **bestätigte** Status. Entwicklungswünsche sind keine Implementierung. Historie in AENDERUNGSPROTOKOLL.md.
+
+## Ergänzung 2026-11-03 – Referenz Diagnoselabor
+Der Nutzer hat die Website `https://klassencheck-diagnoselabor.christianzerfas.chatgpt.site` als maßgeblichen älteren Entwicklungsstand bestätigt und einen echten Screenshot der mobilen Startseite bereitgestellt. Die sichtbare UI umfasst die Akademie-der-Entdecker-Identität, Klassenauswahl und die Karten „Brüche verstehen“ sowie „Würfel, Quader & Volumen“. Diese Referenz wurde in [VERBINDLICHE_DESIGNBASIS.md](VERBINDLICHE_DESIGNBASIS.md) als verbindliche Gestaltungsvorgabe dokumentiert (Commit e54fc2f). Funktionen hinter den Karten und Quellstand des Diagnoselabors bleiben unbestätigt. Noch keine technische Integration oder neue spielbare Mission in diesem Schritt.
