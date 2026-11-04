@@ -37,6 +37,24 @@ box(.33,.2,.39,boot,0,-.83,.12,legR);
 orb(.14,glove,0,-.96,0,armL);
 orb(.14,glove,0,-.96,0,armR);
 const kioName=document.createElement('span');kioName.textContent='KIO · ENTDECKERBEGLEITER';kioName.style.cssText='position:absolute;top:70px;right:16px;background:#091b37df;color:#e4bc83;border:1px solid #e4bc8370;padding:8px 12px;border-radius:12px;font-size:11px;letter-spacing:.08em;z-index:2';stage.appendChild(kioName);
+// Lernobjekt in der Welt: Bruchstreifen werden pro Etappe aktualisiert.
+const fractionBoard=new THREE.Group();fractionBoard.position.set(2.65,1.45,-1.5);scene.add(fractionBoard);
+const filled=mat('#e4bc83',.2,.4),empty=mat('#365368',.1,.8);
+function fractionStrip(n,d,y){
+ const width=2.3,gap=.035;
+ for(let j=0;j<d;j++){
+  const tile=box((width-(d-1)*gap)/d,.36,.12,j<n?filled:empty,-width/2+(j+.5)*width/d,y,0,fractionBoard);
+  tile.userData={fractionPart:j,denominator:d};
+ }
+}
+function updateFractionBoard(index){
+ while(fractionBoard.children.length){const obj=fractionBoard.children[0];fractionBoard.remove(obj);obj.geometry.dispose()}
+ const pairs=[[[1,2],[1,4]],[[1,2],[2,4]],[[3,4],[2,3]]];
+ const pair=pairs[index]||pairs[0];
+ fractionStrip(pair[0][0],pair[0][1],.42);
+ fractionStrip(pair[1][0],pair[1][1],-.22);
+}
+updateFractionBoard(0);
 for(let i=0;i<14;i++){let x=Math.sin(i*2.1)*8,z=-2-i*.4;orb(.06,trim,x,3+Math.cos(i)*1.2,z)}
 function resize(){camera.aspect=innerWidth/innerHeight;camera.position.z=innerWidth<600?12.6:10.2;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)}addEventListener('resize',resize);resize();function loop(){requestAnimationFrame(loop);let t=clock.getElapsedTime();hero.position.y=.05+Math.sin(t*2)*.055;hero.rotation.y=Math.sin(t*.8)*.14+(step===1?.16:0);armL.rotation.x=.12+Math.sin(t*1.8)*.10;armR.rotation.x=-.15+Math.sin(t*1.7)*.11;armL.rotation.z=-.09+Math.sin(t*.9)*.03;armR.rotation.z=.09-Math.sin(t*.9)*.03;legL.rotation.x=Math.sin(t*1.4)*.035;legR.rotation.x=-Math.sin(t*1.4)*.035;ring.rotation.z=t*.15;if(success)bridge.scale.z=THREE.MathUtils.lerp(bridge.scale.z,1,.035);camera.position.x=Math.sin(angle)*8;camera.lookAt(0,1.7,-1.2);renderer.render(scene,camera)}loop();
 }catch(e){document.getElementById('fallback').classList.add('show');console.error(e)}
@@ -48,7 +66,7 @@ const missionRounds=[
 ];
 let round=0,errors=0;
 function start(){round=0;errors=0;success=false;bridge.scale.z=.06;showRound()}
-function showRound(){step=1;const item=missionRounds[round];phase.textContent='MISSION 01 · ETAPPE '+(round+1)+'/3';heading.textContent='Die Bruchbrücke';dialog.textContent=item.question;hint.textContent='Wähle die richtige Antwort. Bei Fehlern erklärt Kio die Strategie.';setButtons(item.options.map((label,index)=>({label,fn:()=>answer(index)})).concat([{label:'Kamera drehen',fn:rotate,secondary:true}]))}
+function showRound(){updateFractionBoard(round);step=1;const item=missionRounds[round];phase.textContent='MISSION 01 · ETAPPE '+(round+1)+'/3';heading.textContent='Die Bruchbrücke';dialog.textContent=item.question;hint.textContent='Wähle die richtige Antwort. Bei Fehlern erklärt Kio die Strategie.';setButtons(item.options.map((label,index)=>({label,fn:()=>answer(index)})).concat([{label:'Kamera drehen',fn:rotate,secondary:true}]))}
 function answer(index){const item=missionRounds[round];if(index!==item.correct){errors++;dialog.textContent=round===0?'Teilst du ein Ganzes in mehr gleich große Teile, wird jedes Teil kleiner.':round===1?'Erweitere Zähler und Nenner mit derselben Zahl.':'Vergleiche Zwölftel: ¾ sind 9/12, ⅔ sind 8/12.';return}dialog.textContent=item.explain;if(round===missionRounds.length-1){success=true;step=2;phase.textContent='MISSION 01 · ABGESCHLOSSEN';heading.textContent='Brücke freigeschaltet!';hint.textContent='3 von 3 Etappen gelöst · '+errors+' zusätzliche Versuche';setButtons([{label:'Mission wiederholen',fn:start},{label:'Zur Akademie',fn:()=>location.assign('./prototype/diagnoselabor-integration.html'),secondary:true}])}else{step=2;heading.textContent='Etappe geschafft!';setButtons([{label:'Nächste Etappe',fn:()=>{round++;showRound()}},{label:'Kamera drehen',fn:rotate,secondary:true}])}}
 function rotate(){angle=(angle+.35)%(Math.PI*.8)}
 document.getElementById('start').addEventListener('click',start);document.getElementById('camera').addEventListener('click',rotate);
