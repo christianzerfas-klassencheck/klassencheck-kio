@@ -69,6 +69,20 @@ renderer.domElement.addEventListener('pointerup',event=>{
  const choice=round===1?(strip===1?0:1):strip===0?0:(round===2?2:1);
  answer(choice);
 });
+// Kio-2-GLB-Preview: erst aktiv, wenn der Asset-Export im Repository liegt.
+// ?kio2=1 aktiviert die Prüfung; bei fehlendem GLB bleibt der Prototyp sichtbar.
+if(new URLSearchParams(location.search).get('kio2')==='1'){
+ import('https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/loaders/GLTFLoader.js')
+ .then(({GLTFLoader})=>new GLTFLoader().load('./assets/kio/kio-v2.glb',gltf=>{
+   const model=gltf.scene;model.position.set(-.7,.05,1.5);model.rotation.y=Math.PI;
+   scene.add(model);hero.visible=false;
+   const mixer=new THREE.AnimationMixer(model);
+   if(gltf.animations.length){mixer.clipAction(gltf.animations[0]).play();}
+   const previous=renderer.setAnimationLoop;
+   kioName.textContent='KIO 2.0 · GLB-PREVIEW';
+ },undefined,()=>{kioName.textContent='KIO 2.0 · GLB NOCH NICHT EXPORTIERT';}))
+ .catch(()=>{kioName.textContent='KIO 2.0 · LOADER NICHT VERFÜGBAR';});
+}
 for(let i=0;i<14;i++){let x=Math.sin(i*2.1)*8,z=-2-i*.4;orb(.06,trim,x,3+Math.cos(i)*1.2,z)}
 function resize(){camera.aspect=innerWidth/innerHeight;camera.position.z=innerWidth<600?12.6:10.2;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)}addEventListener('resize',resize);resize();function loop(){requestAnimationFrame(loop);let t=clock.getElapsedTime();const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;hero.position.y=.05+(reduced?0:Math.sin(t*2)*.055);hero.rotation.y=Math.sin(t*.8)*.14+(step===1?.16:0);armL.rotation.x=.12+Math.sin(t*1.8)*.10;armR.rotation.x=-.15+Math.sin(t*1.7)*.11;armL.rotation.z=-.09+Math.sin(t*.9)*.03;armR.rotation.z=.09-Math.sin(t*.9)*.03;legL.rotation.x=Math.sin(t*1.4)*.035;legR.rotation.x=-Math.sin(t*1.4)*.035;ring.rotation.z=reduced?0:t*.15;if(success)bridge.scale.z=THREE.MathUtils.lerp(bridge.scale.z,1,.035);camera.position.x=Math.sin(angle)*8;camera.lookAt(0,1.7,-1.2);renderer.render(scene,camera)}loop();
 }catch(e){document.getElementById('fallback').classList.add('show');console.error(e)}
