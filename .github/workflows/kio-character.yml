@@ -1,0 +1,47 @@
+name: Kio 2.0 GLB Build
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/build_kio_character.py'
+      - '.github/workflows/kio-character.yml'
+permissions:
+  contents: write
+jobs:
+  build-character:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Blender installieren
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y blender
+      - name: Eigenständigen GLB-Charakter generieren
+        run: blender --background --python tools/build_kio_character.py
+      - name: Export validieren
+        run: |
+          test -s assets/kio/kio-v2.glb
+          python3 - <<'PY'
+          import struct
+          with open('assets/kio/kio-v2.glb','rb') as f:
+              h=f.read(12)
+          assert h[:4]==b'glTF', 'Ungültige GLB-Signatur'
+          assert struct.unpack('<I',h[4:8])[0]==2, 'GLB Version != 2'
+          print('GLB-Header gültig')
+          PY
+      - name: Charakter als Build-Artefakt sichern
+        uses: actions/upload-artifact@v4
+        with:
+          name: kio-v2-glb
+          path: assets/kio/kio-v2.glb
+      - name: Generierten Charakter in main veröffentlichen
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/kio/kio-v2.glb
+          if ! git diff --cached --quiet; then
+            git commit -m 'build: Kio-2-GLB aus Blender-Generator erzeugen'
+            git push
+          fi
