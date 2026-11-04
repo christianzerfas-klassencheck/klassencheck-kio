@@ -32,3 +32,9 @@ Der Nutzer hat die Website `https://klassencheck-diagnoselabor.christianzerfas.c
 - **Testcode committed:** `learning/grade6-diagnostic-missions.test.mjs` mit Node-Bordmitteln; Testfälle für Aufgabenstruktur, Äquivalenz, Vergleich, Feedback und Transfer. Commit 706af5e. **Tests noch nicht ausgeführt**; daher kein grüner Teststatus behauptet. Ausführen: `node --test learning/grade6-diagnostic-missions.test.mjs`.
 - **Noch nicht integriert:** Aufgabenmodul ist derzeit eigenständig und nicht in die UI/3D-Szenen eingebunden. Die tatsächliche Diagnoselabor-App und ihre Quelldateien sind noch nicht zugeordnet. Keine neue öffentliche Spielversion, kein visueller Fortschritt in der App in diesem Schritt.
 - **Nächster überprüfbarer Meilenstein:** Testlauf, Diagnoselabor-Code zuordnen, Missionen mit echten 3D-Interaktionen verbinden, Screenshot aus dem laufenden Build.
+
+## 2026-11-04 – Spielbarer Integrationsprototyp
+- **Neu im Repository:** `prototype/diagnoselabor-integration.html`, Commit `78cb721e44a4e28831401d705e1604041ba0cf1c`.
+- Mobile Startseite nach sichtbarer Diagnoselabor-Referenz (Petrol/Gold, Akademie der Entdecker, Klassenwahl, zwei Themenkarten), je drei klickbare Aufgaben für Brüche und Würfel/Quader, Auswahl und Prüfung, Hinweis, Transfer, lokaler Fortschritt.
+- **Wichtige Grenzen:** Standalone-HTML, noch keine Anbindung an das tatsächliche Diagnoselabor-Deployment; Kio-Revision 13 und Three.js-Welten noch nicht integriert; keine echte 3D-Interaktion, nur visuell räumliche CSS-Würfel; Browser- und Testlauf noch nicht unabhängig bestätigt. GitHub-Commit allein ist keine öffentliche Veröffentlichung.
+- Nächster Schritt: im Browser prüfen, anschließend originale Kio-Module und interaktive 3D-Szenen einbinden und erst nach Abnahme eine gemeinsame Veröffentlichung planen.
