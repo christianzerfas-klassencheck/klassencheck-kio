@@ -48,3 +48,9 @@ Der Nutzer hat die Website `https://klassencheck-diagnoselabor.christianzerfas.c
 - Neu: `docs/produkt/KOMPETENZ-WELTEN-5-10.md` mit zwölf konzeptionellen Themenwelten, Kio-Zustandsmodell, Qualitäts-/Rechtscheck und Release-Gates (Commit 5912660). **Noch keine offizielle curriculare Validierung.**
 - Neu: `prototype/learning-diagnostics.js` und Integration in die spielbare HTML-Ansicht (Commits ac1df4d, a6389ea, efc6084). Lokale Erfassung von Aufgaben-ID, Kompetenzlabel, Erfolg, Hinweisanforderung; Fortschrittsanzeige; kein Trackingdienst. Datenschutz- und Sicherheitsprüfung vor Produktstart weiterhin erforderlich.
 - **Nicht als fertig behaupten:** 3D-Kio in Diagnoselabor, alle Jahrgänge 5–10, juristische Freigabe, echte Browser-/Gerätetests und Marktreife.
+
+## 2026-11-04 – Kio 2.0 und automatisierte Qualitätssicherung
+- `docs/produkt/KIO-2-CHARACTER-PIPELINE.md`: verbindlicher Produktionsbrief für eigenständigen riggbaren GLB-Charakter, Animationen, mobile Abnahme, Lizenzanforderungen (Commit b075585).
+- `.github/workflows/quality.yml`: Node-22-CI mit mathematischen und Integritätsprüfungen (Commit 50a3543).
+- `tests/prototype-integrity.test.mjs`: Prüft eingebundene Skripte, Navigation, Löschfunktion und Lernmodule (Commit e038501).
+- **Noch nicht verifiziert:** CI-Durchlauf, iPhone-/Android-Sichttest, finale GLB-Figur, curriculare Originalquellenprüfung und juristische Freigabe. CI-Tests ersetzen keine reale UX-/Barrierefreiheitsabnahme.
