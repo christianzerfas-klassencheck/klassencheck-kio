@@ -38,3 +38,8 @@ Der Nutzer hat die Website `https://klassencheck-diagnoselabor.christianzerfas.c
 - Mobile Startseite nach sichtbarer Diagnoselabor-Referenz (Petrol/Gold, Akademie der Entdecker, Klassenwahl, zwei Themenkarten), je drei klickbare Aufgaben für Brüche und Würfel/Quader, Auswahl und Prüfung, Hinweis, Transfer, lokaler Fortschritt.
 - **Wichtige Grenzen:** Standalone-HTML, noch keine Anbindung an das tatsächliche Diagnoselabor-Deployment; Kio-Revision 13 und Three.js-Welten noch nicht integriert; keine echte 3D-Interaktion, nur visuell räumliche CSS-Würfel; Browser- und Testlauf noch nicht unabhängig bestätigt. GitHub-Commit allein ist keine öffentliche Veröffentlichung.
 - Nächster Schritt: im Browser prüfen, anschließend originale Kio-Module und interaktive 3D-Szenen einbinden und erst nach Abnahme eine gemeinsame Veröffentlichung planen.
+
+## 2026-11-04 – Weitere spielerische Interaktion
+- `prototype/cube-workshop.js` implementiert das Hinzufügen/Entfernen von Einheitswürfeln und einen Live-Zähler; in `prototype/diagnoselabor-integration.html` eingebunden (Commits a0be581, b502038).
+- `prototype/kio-guide.js` ergänzt kontextabhängiges Textfeedback bei Missionsbeginn, Fehlern, richtigen Lösungen und Hilfen; im Prototyp eingebunden (Commits e12d332, 66b50af).
+- **Noch offen:** Laufzeitprüfung auf Mobilgeräten, reale 3D-Würfelgeometrie statt CSS-Würfeln, Anbindung an 3D-Kio, Tests, Übernahme ins Diagnoselabor-Deployment und curriculare Zuordnung. Der neue Code ist gespeichert, aber nicht als im Browser abgenommen ausgewiesen.
