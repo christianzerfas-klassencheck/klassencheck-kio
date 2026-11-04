@@ -22,6 +22,14 @@ try{
   await page.locator('#question').waitFor();
   assert.ok((await page.locator('#question').innerText()).length>5);
   await page.screenshot({path:'test-results/mobile/'+label+'-akademie.png',fullPage:true});
+  await page.goto(url+'/prototype/koerperwerkstatt.html',{waitUntil:'domcontentloaded',timeout:20000});
+  await page.getByRole('heading',{name:'Körperwerkstatt'}).waitFor();
+  await page.getByRole('button',{name:'Höhe um eins vergrößern'}).click();
+  assert.match(await page.locator('#dimensions').innerText(),/2 × 2 × 2/);
+  await page.locator('#answer').fill('8');
+  await page.getByRole('button',{name:'Antwort prüfen'}).click();
+  assert.match(await page.locator('#feedback').innerText(),/Richtig!/);
+  await page.screenshot({path:'test-results/mobile/'+label+'-koerperwerkstatt.png',fullPage:true});
   await page.goto(url+'/',{waitUntil:'domcontentloaded',timeout:20000});
   await page.locator('#start').waitFor();
   await page.screenshot({path:'test-results/mobile/'+label+'-3d.png',fullPage:true});
