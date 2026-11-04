@@ -28,8 +28,9 @@
   check=function(){
     const task=tasks[category][i];
     const choice=selected;
+    const wasDone=done;
     originalCheck();
-    if(choice<0)return;
+    if(choice<0||wasDone)return;
     attempts.push({id:task.id,category,competence:labels[task.id]||task.id,correct:choice===task.answer,usedHint:!!usedHint});
     attempts=attempts.slice(-100);
     save();
