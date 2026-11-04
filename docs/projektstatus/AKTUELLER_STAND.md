@@ -43,3 +43,8 @@ Der Nutzer hat die Website `https://klassencheck-diagnoselabor.christianzerfas.c
 - `prototype/cube-workshop.js` implementiert das Hinzufügen/Entfernen von Einheitswürfeln und einen Live-Zähler; in `prototype/diagnoselabor-integration.html` eingebunden (Commits a0be581, b502038).
 - `prototype/kio-guide.js` ergänzt kontextabhängiges Textfeedback bei Missionsbeginn, Fehlern, richtigen Lösungen und Hilfen; im Prototyp eingebunden (Commits e12d332, 66b50af).
 - **Noch offen:** Laufzeitprüfung auf Mobilgeräten, reale 3D-Würfelgeometrie statt CSS-Würfeln, Anbindung an 3D-Kio, Tests, Übernahme ins Diagnoselabor-Deployment und curriculare Zuordnung. Der neue Code ist gespeichert, aber nicht als im Browser abgenommen ausgewiesen.
+
+## 2026-11-04 – Klassen 5–10 und Diagnoseausbau
+- Neu: `docs/produkt/KOMPETENZ-WELTEN-5-10.md` mit zwölf konzeptionellen Themenwelten, Kio-Zustandsmodell, Qualitäts-/Rechtscheck und Release-Gates (Commit 5912660). **Noch keine offizielle curriculare Validierung.**
+- Neu: `prototype/learning-diagnostics.js` und Integration in die spielbare HTML-Ansicht (Commits ac1df4d, a6389ea, efc6084). Lokale Erfassung von Aufgaben-ID, Kompetenzlabel, Erfolg, Hinweisanforderung; Fortschrittsanzeige; kein Trackingdienst. Datenschutz- und Sicherheitsprüfung vor Produktstart weiterhin erforderlich.
+- **Nicht als fertig behaupten:** 3D-Kio in Diagnoselabor, alle Jahrgänge 5–10, juristische Freigabe, echte Browser-/Gerätetests und Marktreife.
