@@ -13,8 +13,32 @@ box(4,.3,2.8,stone,0,.05,-4.6);bridge=box(4,.14,3.5,trim,0,.17,-4.6);bridge.scal
 hero=new THREE.Group();hero.position.set(-.7,.05,1.5);scene.add(hero);box(.8,1.12,.42,suit,0,1.65,0,hero);box(.84,.15,.48,trim,0,1.25,0,hero);orb(.38,skin,0,2.52,0,hero);let haircap=orb(.39,hair,0,2.72,-.045,hero);haircap.scale.set(1,.47,1);orb(.045,dark,-.14,2.55,.34,hero);orb(.045,dark,.14,2.55,.34,hero);box(.19,.05,.02,dark,0,2.38,.356,hero);box(.45,.12,.48,dark,0,2.95,-.02,hero);
 function limb(w,h,d,m,x,y,z,parent){let pivot=new THREE.Group();pivot.position.set(x,y,z);parent.add(pivot);box(w,h,d,m,0,-h/2,0,pivot);return pivot}
 armL=limb(.23,.95,.26,suit,-.55,2.13,0,hero);armR=limb(.23,.95,.26,suit,.55,2.13,0,hero);legL=limb(.28,.95,.32,dark,-.23,1.14,0,hero);legR=limb(.28,.95,.32,dark,.23,1.14,0,hero);box(.7,.14,.15,trim,0,1.87,.24,hero);
+// Kio Art Direction 2: erkennbare Silhouette, mehrschichtige Kleidung, Gesicht und räumliche Bühne.
+const gold=mat('#e4bc83',.35,.36),jacket=mat('#344f63',.08,.78),glove=mat('#b78d71'),boot=mat('#162534'),iris=mat('#446e79');
+box(.76,.42,.51,jacket,0,1.92,-.025,hero);
+box(.09,.73,.51,gold,-.29,1.72,.005,hero);
+box(.09,.73,.51,gold,.29,1.72,.005,hero);
+box(.31,.15,.1,gold,0,1.82,.32,hero);
+box(.31,.13,.2,gold,0,1.17,.12,hero);
+orb(.1,skin,-.38,2.48,.01,hero);
+orb(.1,skin,.38,2.48,.01,hero);
+orb(.065,white,-.145,2.55,.355,hero);
+orb(.065,white,.145,2.55,.355,hero);
+orb(.035,iris,-.145,2.55,.409,hero);
+orb(.035,iris,.145,2.55,.409,hero);
+orb(.035,dark,-.145,2.55,.436,hero);
+orb(.035,dark,.145,2.55,.436,hero);
+box(.17,.025,.025,hair,-.145,2.67,.355,hero);
+box(.17,.025,.025,hair,.145,2.67,.355,hero);
+orb(.065,skin,0,2.43,.39,hero);
+box(.34,.045,.04,skin,0,2.32,.34,hero);
+box(.33,.2,.39,boot,0,-.83,.12,legL);
+box(.33,.2,.39,boot,0,-.83,.12,legR);
+orb(.14,glove,0,-.96,0,armL);
+orb(.14,glove,0,-.96,0,armR);
+const kioName=document.createElement('span');kioName.textContent='KIO · ENTDECKERBEGLEITER';kioName.style.cssText='position:absolute;top:70px;right:16px;background:#091b37df;color:#e4bc83;border:1px solid #e4bc8370;padding:8px 12px;border-radius:12px;font-size:11px;letter-spacing:.08em;z-index:2';stage.appendChild(kioName);
 for(let i=0;i<14;i++){let x=Math.sin(i*2.1)*8,z=-2-i*.4;orb(.06,trim,x,3+Math.cos(i)*1.2,z)}
-function resize(){camera.aspect=innerWidth/innerHeight;camera.position.z=innerWidth<600?12.6:10.2;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)}addEventListener('resize',resize);resize();function loop(){requestAnimationFrame(loop);let t=clock.getElapsedTime();hero.position.y=.05+Math.sin(t*2)*.055;hero.rotation.y=Math.sin(t*.8)*.09;armL.rotation.x=Math.sin(t*1.8)*.13;armR.rotation.x=-.28+Math.sin(t*1.7)*.18;legL.rotation.x=Math.sin(t*1.4)*.035;legR.rotation.x=-Math.sin(t*1.4)*.035;ring.rotation.z=t*.15;if(success)bridge.scale.z=THREE.MathUtils.lerp(bridge.scale.z,1,.035);camera.position.x=Math.sin(angle)*8;camera.lookAt(0,1.7,-1.2);renderer.render(scene,camera)}loop();
+function resize(){camera.aspect=innerWidth/innerHeight;camera.position.z=innerWidth<600?12.6:10.2;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)}addEventListener('resize',resize);resize();function loop(){requestAnimationFrame(loop);let t=clock.getElapsedTime();hero.position.y=.05+Math.sin(t*2)*.055;hero.rotation.y=Math.sin(t*.8)*.14+(step===1?.16:0);armL.rotation.x=.12+Math.sin(t*1.8)*.10;armR.rotation.x=-.15+Math.sin(t*1.7)*.11;armL.rotation.z=-.09+Math.sin(t*.9)*.03;armR.rotation.z=.09-Math.sin(t*.9)*.03;legL.rotation.x=Math.sin(t*1.4)*.035;legR.rotation.x=-Math.sin(t*1.4)*.035;ring.rotation.z=t*.15;if(success)bridge.scale.z=THREE.MathUtils.lerp(bridge.scale.z,1,.035);camera.position.x=Math.sin(angle)*8;camera.lookAt(0,1.7,-1.2);renderer.render(scene,camera)}loop();
 }catch(e){document.getElementById('fallback').classList.add('show');console.error(e)}
 function setButtons(items){actions.replaceChildren();items.forEach(({label,fn,secondary})=>{let b=document.createElement('button');b.textContent=label;b.className=secondary?'secondary':'choice';b.addEventListener('click',fn);actions.appendChild(b)})}
 function start(){step=1;phase.textContent='MISSION 01 · ENTSCHEIDUNG';heading.textContent='Welche Brücke trägt mehr?';dialog.textContent='Stell dir zwei gleich große Pizzen vor. Welche Portion ist größer: ein Halb oder ein Viertel?';setButtons([{label:'½ – ein Halb',fn:correct},{label:'¼ – ein Viertel',fn:wrong}])}
