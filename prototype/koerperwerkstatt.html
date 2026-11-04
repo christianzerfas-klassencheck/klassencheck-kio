@@ -3,13 +3,13 @@
 <style>
 :root{font-family:system-ui,-apple-system,sans-serif;color-scheme:dark;background:#071b27;color:#f6f3eb}*{box-sizing:border-box}body{margin:0}main{max-width:980px;margin:auto;padding:20px 16px 70px}a{color:#f4d79b}.head{display:flex;align-items:center;justify-content:space-between;gap:10px}.tag{font-size:12px;color:#81d9d1;letter-spacing:.12em;font-weight:800}h1{font-size:clamp(27px,6vw,43px);margin:15px 0 7px}p{line-height:1.5;color:#c8d8d9}.layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(270px,1fr);gap:18px}.world{border:1px solid #52717a;border-radius:24px;overflow:hidden;background:radial-gradient(ellipse at 55% 10%,#315a66,#102b3c 65%,#081c29);position:relative}.world canvas{display:block;width:100%;height:auto;touch-action:manipulation}.controls,.panel{background:#102d38;border:1px solid #496f76;border-radius:20px;padding:19px}.panel{align-self:start}button{border:1px solid #81aaa9;border-radius:13px;background:#234a57;color:#fff;font:inherit;font-weight:750;padding:13px 15px;min-height:48px;cursor:pointer}button.primary{background:#ebc88e;color:#172d38;border-color:#ebc88e}button:focus-visible{outline:3px solid #fff;outline-offset:2px}button:disabled{opacity:.4;cursor:not-allowed}.tools{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:14px 0}.tools button{padding:10px 5px}.status{background:#173d47;border-radius:12px;padding:12px;min-height:66px;margin:15px 0}label{display:block;font-weight:750;margin:15px 0 6px}input{width:100%;border:1px solid #a6c3c4;border-radius:12px;background:#0b2530;color:white;padding:14px;font:inherit;font-size:18px}progress{width:100%;accent-color:#ebc88e}.foot{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px}.small{font-size:13px}.visually-hidden{position:absolute;left:-9999px}@media(max-width:730px){.layout{grid-template-columns:1fr}.world canvas{max-height:50vh}.tools{grid-template-columns:repeat(3,1fr)}}
 </style></head><body><main><div class="head"><a href="./diagnoselabor-integration.html">← Akademie</a><span class="tag">KIO / RAUM 02</span></div><h1>Körperwerkstatt</h1><p>Baue einen Quader aus Einheitswürfeln. Entdecke, wie viele Würfel in einer Schicht und im ganzen Körper stecken.</p>
-<div class="layout"><div><div class="world"><canvas id="canvas" width="740" height="520" aria-label="Dreidimensionale Darstellung des gebauten Quaders"></canvas></div><div class="controls"><div class="tag">BAUWERKZEUGE</div><p class="small">Ändere Länge, Breite und Höhe. Die Würfel erscheinen unmittelbar im Raum.</p><div class="tools"><button data-axis="x" data-delta="-1" aria-label="Länge um eins verkleinern">Länge −</button><button data-axis="y" data-delta="-1" aria-label="Breite um eins verkleinern">Breite −</button><button data-axis="z" data-delta="-1" aria-label="Höhe um eins verkleinern">Höhe −</button><button data-axis="x" data-delta="1" aria-label="Länge um eins vergrößern">Länge +</button><button data-axis="y" data-delta="1" aria-label="Breite um eins vergrößern">Breite +</button><button data-axis="z" data-delta="1" aria-label="Höhe um eins vergrößern">Höhe +</button></div><button id="rotate">Ansicht drehen</button> <button id="reset">Bauwerk zurücksetzen</button></div></div>
+<div class="layout"><div><div class="world"><canvas id="canvas" width="740" height="520" aria-label="Dreidimensionale Darstellung des gebauten Quaders"></canvas></div><div class="controls"><div class="tag">BAUWERKZEUGE</div><p class="small">Ändere Länge, Breite und Höhe. Die Würfel erscheinen unmittelbar im Raum.</p><div class="tools"><button data-axis="x" data-delta="-1" aria-label="Länge um eins verkleinern">Länge −</button><button data-axis="y" data-delta="-1" aria-label="Breite um eins verkleinern">Breite −</button><button data-axis="z" data-delta="-1" aria-label="Höhe um eins verkleinern">Höhe −</button><button data-axis="x" data-delta="1" aria-label="Länge um eins vergrößern">Länge +</button><button data-axis="y" data-delta="1" aria-label="Breite um eins vergrößern">Breite +</button><button data-axis="z" data-delta="1" aria-label="Höhe um eins vergrößern">Höhe +</button></div><button id="rotate">Ansicht drehen</button> <button id="removeCube" aria-label="Einen Einheitswürfel entfernen">Würfel −</button> <button id="addCube" aria-label="Einen Einheitswürfel ergänzen">Würfel +</button> <button id="reset">Bauwerk zurücksetzen</button><p class="small" id="cubeCount" aria-live="polite"></p></div></div>
 <section class="panel"><div class="tag" id="mission">MISSION 1 / 3</div><h2 id="title">Baue deinen ersten Quader</h2><p id="instruction">Stelle Länge 2, Breite 2 und Höhe 2 ein.</p><progress id="progress" max="3" value="0"></progress><p><strong id="dimensions">2 × 2 × 1</strong> Einheitswürfel</p><p id="layer">Eine Schicht enthält 4 Würfel.</p><label for="answer">Wie viele Einheitswürfel sind es insgesamt?</label><input id="answer" inputmode="numeric" type="number" min="1" max="64" step="1" placeholder="Deine Antwort"><div class="status" role="status" aria-live="polite" id="feedback">Verändere den Körper und prüfe deine Antwort.</div><div class="foot"><button class="primary" id="check">Antwort prüfen</button><button id="help">Kios Hinweis</button><button id="next" hidden>Nächste Mission →</button></div><p class="small">Die Aufgabe wird lokal im Browser ausgewertet. Es werden keine persönlichen Daten an einen Server übertragen.</p></section></div></main>
 <script type="module">
 import {volumeTasks,evaluateVolume} from '../learning/world-content-catalog.mjs';
 const $=id=>document.getElementById(id);
 const canvas=$('canvas'),ctx=canvas.getContext('2d');
-let step=0,turn=0,dimensions=[2,2,1],completed=false;
+let step=0,turn=0,dimensions=[2,2,1],completed=false,removed=0,errors=0,hints=0;
 const tasks=volumeTasks;
 function iso(x,y,z){
  const a=turn%4,xx=a===0?x:a===1?y:a===2?-x:-y,yy=a===0?y:a===1?-x:a===2?-y:x;
@@ -30,11 +30,11 @@ function draw(){
  ctx.fillStyle='#82d7ce';ctx.font='700 18px system-ui';ctx.fillText('KIO · MATHEMATIK ZUM ANFASSEN',25,35);
  const cubes=[];for(let x=0;x<dimensions[0];x++)for(let y=0;y<dimensions[1];y++)for(let z=0;z<dimensions[2];z++)cubes.push([x,y,z]);
  cubes.sort((a,b)=>{const pa=iso(...a),pb=iso(...b);return pa[1]-pb[1]});
- cubes.forEach(([x,y,z])=>cube(x,y,z));
+ cubes.slice(0,Math.max(0,cubes.length-removed)).forEach(([x,y,z])=>cube(x,y,z));
  ctx.font='16px system-ui';ctx.fillStyle='#f0e3c8';ctx.fillText('Einheitswürfel · jede Kante = 1 Einheit',25,canvas.height-25);
 }
 function render(){
- $('dimensions').textContent=dimensions.join(' × ');
+ $('dimensions').textContent=dimensions.join(' × ');$('cubeCount').textContent='Sichtbare Würfel: '+(dimensions[0]*dimensions[1]*dimensions[2]-removed)+' von '+dimensions[0]*dimensions[1]*dimensions[2];$('addCube').disabled=completed||removed===0;$('removeCube').disabled=completed||removed>=dimensions[0]*dimensions[1]*dimensions[2];
  $('layer').textContent='Eine Schicht enthält '+dimensions[0]*dimensions[1]+' Würfel. Höhe: '+dimensions[2]+' Schicht(en).';
  $('progress').value=step;$('mission').textContent='MISSION '+(step+1)+' / '+tasks.length;
  $('title').textContent=['Der erste Baukörper','Schichten entdecken','Die große Bauprobe'][step];
@@ -46,24 +46,27 @@ function render(){
 function message(s){$('feedback').textContent=s}
 document.querySelectorAll('[data-axis]').forEach(b=>b.addEventListener('click',()=>{
  const axis='xyz'.indexOf(b.dataset.axis),delta=Number(b.dataset.delta);
- dimensions[axis]=Math.max(1,Math.min(4,dimensions[axis]+delta));completed=false;
+ dimensions[axis]=Math.max(1,Math.min(4,dimensions[axis]+delta));removed=0;completed=false;
  $('answer').value='';message('Du hast den Quader verändert. Was bedeutet das für die Würfelanzahl?');render();
 }));
 $('rotate').addEventListener('click',()=>{turn=(turn+1)%4;draw()});
-$('reset').addEventListener('click',()=>{dimensions=[2,2,1];completed=false;$('answer').value='';message('Bauwerk zurückgesetzt.');render()});
-$('help').addEventListener('click',()=>message(tasks[step].hint));
+$('removeCube').addEventListener('click',()=>{if(completed)return;removed=Math.min(removed+1,dimensions[0]*dimensions[1]*dimensions[2]);message('Kio: Ein Würfel fehlt jetzt. Ergänze ihn wieder, bevor du den vollständigen Quader prüfst.');render()});
+$('addCube').addEventListener('click',()=>{if(completed)return;removed=Math.max(0,removed-1);message('Kio: Du hast einen Würfel ergänzt.');render()});
+$('reset').addEventListener('click',()=>{dimensions=[2,2,1];removed=0;completed=false;$('answer').value='';message('Bauwerk zurückgesetzt.');render()});
+$('help').addEventListener('click',()=>{hints++;message('Kio: '+(removed?'Der Quader hat eine Lücke. Fülle sie zuerst. ':errors>0?'Prüfe erst die Würfel einer Schicht. ':'')+tasks[step].hint)});
 $('check').addEventListener('click',()=>{
  if(dimensions.some((d,i)=>d!==tasks[step].dimensions[i])){message('Kio: Erst den Quader in den angegebenen Maßen bauen. Prüfe Länge, Breite und Höhe.');return}
+ if(removed>0){message('Kio: Der Quader ist noch nicht vollständig. Ergänze die '+removed+' fehlenden Würfel.');return}
  const raw=$('answer').value.trim();
  if(!raw){message('Kio: Gib zuerst die Anzahl der Würfel ein.');return}
  const result=evaluateVolume(dimensions,Number(raw));
  if(result.correct){completed=true;message('Richtig! '+dimensions[0]*dimensions[1]+' Würfel pro Schicht × '+dimensions[2]+' Schichten = '+result.expected+'.');render()}
- else message('Noch nicht. Zähle die Würfel einer Schicht und dann die Anzahl der Schichten.');
+ else {errors++;message(errors===1?'Kio: Zähle zuerst eine Schicht: '+dimensions[0]+' × '+dimensions[1]+'.':'Kio: Du hast '+dimensions[2]+' Schichten. Multipliziere die Würfel pro Schicht mit der Höhe.');}
 });
 $('next').addEventListener('click',()=>{
  if(!completed)return;
  if(step===tasks.length-1){message('Alle drei Bauproben geschafft! Kehre zur Akademie zurück und entdecke weitere Welten.');$('next').hidden=true;$('check').disabled=true;return}
- step++;completed=false;dimensions=[2,2,1];$('answer').value='';message('Neue Bauprobe: Verändere den Körper und prüfe die Anzahl.');render();
+ step++;completed=false;dimensions=[2,2,1];removed=0;errors=0;hints=0;$('answer').value='';message('Neue Bauprobe: Verändere den Körper und prüfe die Anzahl.');render();
 });
 render();
 </script></body></html>
