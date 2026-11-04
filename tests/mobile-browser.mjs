@@ -26,6 +26,12 @@ try{
   await page.getByRole('heading',{name:'Körperwerkstatt'}).waitFor();
   await page.getByRole('button',{name:'Höhe um eins vergrößern'}).click();
   assert.match(await page.locator('#dimensions').innerText(),/2 × 2 × 2/);
+  await page.getByRole('button',{name:'Einen Einheitswürfel entfernen'}).click();
+  assert.match(await page.locator('#cubeCount').innerText(),/7 von 8/);
+  await page.locator('#answer').fill('8');
+  await page.getByRole('button',{name:'Antwort prüfen'}).click();
+  assert.match(await page.locator('#feedback').innerText(),/nicht vollständig/);
+  await page.getByRole('button',{name:'Einen Einheitswürfel ergänzen'}).click();
   await page.locator('#answer').fill('8');
   await page.getByRole('button',{name:'Antwort prüfen'}).click();
   assert.match(await page.locator('#feedback').innerText(),/Richtig!/);
