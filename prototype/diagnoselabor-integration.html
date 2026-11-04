@@ -23,4 +23,4 @@ function render(){const t=tasks[category][i];selected=-1;done=false;usedHint=fal
 function check(){if(done)return;const t=tasks[category][i];if(selected<0){$("feedback").textContent="Wähle zuerst eine Antwort.";return}if(selected===t.answer){done=true;$("feedback").textContent=usedHint?"Richtig! Du hast die Aufgabe mit einem Hinweis gelöst.":"Richtig! Gut erkannt."; $("check").classList.add("hide");$("hint").classList.add("hide");$("next").classList.remove("hide");try{localStorage.setItem("kc-demo-"+category,String(Math.min(i+1,2)))}catch{}}else{$("feedback").textContent="Noch nicht. Überlege, wie du die Darstellung prüfen kannst."}}
 function showHint(){usedHint=true;$("hintText").textContent=tasks[category][i].hint}
 function next(){if(i<2){i++;render()}else{goHome();$("home").querySelector("h1").textContent="Mission geschafft! Was möchtest du als Nächstes entdecken?"}}
-</script></body></html>
+</script><script src="./cube-workshop.js"></script></body></html>
