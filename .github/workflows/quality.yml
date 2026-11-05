@@ -22,16 +22,16 @@ jobs:
         run: node --test tests/*.test.mjs
   browser-smoke:
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.56.1-noble
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Playwright bereitstellen
-        run: |
-          npm install --no-save --no-package-lock playwright@1.56.1
-          npx playwright install --with-deps chromium
+      - name: Playwright-Bibliothek installieren (Browser im Container vorhanden)
+        run: npm install --no-save --no-package-lock playwright@1.56.1
       - name: iPhone- und Android-Browser prüfen
         run: node tests/mobile-browser.mjs
       - name: Screenshots bei Fehlern sichern
