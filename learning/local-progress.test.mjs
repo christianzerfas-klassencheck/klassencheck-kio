@@ -11,3 +11,18 @@ test('Defekte oder gesperrte Speicherung führt nicht zum Absturz',()=>{
  const bad={getItem:()=>'{',setItem:()=>{throw Error('blocked')},removeItem:()=>{throw Error('blocked')}};
  assert.deepEqual(loadProgress(bad),emptyProgress());assert.equal(saveProgress(bad,emptyProgress()),false);assert.equal(clearProgress(bad),false);
 });
+
+test('Beschädigte Profilwerte werden entfernt und Versuchszähler bleiben numerisch',()=>{
+ const damaged={completed:{'P7-01':true,'P7-B1':'yes'},attempts:{'P7-01':'9','P7-B1':-2,'G7-01':2}};
+ const p=recordProgress(damaged,'P7-01','retry');
+ assert.equal(p.attempts['P7-01'],1);
+ assert.equal(p.attempts['G7-01'],2);
+ assert.equal(p.attempts['P7-B1'],undefined);
+ assert.equal(p.completed['P7-B1'],undefined);
+ assert.equal(p.completed['P7-01'],true);
+});
+test('Ungültige Missions-IDs und Array-Profile werden ignoriert',()=>{
+ assert.deepEqual(recordProgress([], 'P7-01','correct').completed,{});
+ assert.deepEqual(recordProgress(emptyProgress(),'__proto__','correct'),emptyProgress());
+ assert.deepEqual(recordProgress(emptyProgress(),'P7-01','correct').completed,{'P7-01':true});
+});
