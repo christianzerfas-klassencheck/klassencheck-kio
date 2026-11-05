@@ -1,17 +1,20 @@
 import { chromium, devices } from 'playwright';
 import { spawn } from 'node:child_process';
 import { mkdir } from 'node:fs/promises';
+import { setTimeout as delay } from 'node:timers/promises';
 import assert from 'node:assert/strict';
 
 const server=spawn('python3',['-m','http.server','4173','--bind','127.0.0.1'],{stdio:'ignore'});
 const url='http://127.0.0.1:4173';
+async function waitForServer(){for(let i=0;i<40;i++){try{const response=await fetch(url+'/prototype/proportionsstadt.html');if(response.ok)return}catch{}await delay(250)}throw new Error('Lokaler Testserver nach 10 Sekunden nicht erreichbar')}
 await mkdir('test-results/mobile',{recursive:true});
 let browser;
 const results=[];
 try{
+ await waitForServer();
  browser=await chromium.launch({headless:true,args:['--use-gl=angle','--use-angle=swiftshader','--enable-webgl']});
  for(const [label,device] of [['iphone',devices['iPhone 13']],['android',devices['Pixel 7']]]){
-  const context=await browser.newContext({...device,browserName:undefined});
+  const context=await browser.newContext({...device});
   const page=await context.newPage();
   const errors=[];
   page.on('pageerror',error=>errors.push(error.message));
