@@ -17,6 +17,9 @@ try{
   const context=await browser.newContext({...device});
   const page=await context.newPage();
   const errors=[];
+  page.on('console',message=>{if(message.type()==='error')console.error('['+label+'] browser console: '+message.text())});
+  page.on('requestfailed',request=>console.error('['+label+'] request failed: '+request.url()+' '+(request.failure()?.errorText||'')));
+  console.log('['+label+'] Akademie starten');
   page.on('pageerror',error=>errors.push(error.message));
   await page.goto(url+'/prototype/diagnoselabor-integration.html',{waitUntil:'domcontentloaded',timeout:20000});
   await page.getByRole('heading',{name:/Was möchtest du/}).waitFor();
@@ -25,6 +28,7 @@ try{
   await page.locator('#question').waitFor();
   assert.ok((await page.locator('#question').innerText()).length>5);
   await page.screenshot({path:'test-results/mobile/'+label+'-akademie.png',fullPage:true});
+  console.log('['+label+'] Körperwerkstatt prüfen');
   await page.goto(url+'/prototype/koerperwerkstatt.html',{waitUntil:'domcontentloaded',timeout:20000});
   await page.getByRole('heading',{name:'Körperwerkstatt'}).waitFor();
   await page.getByRole('button',{name:'Höhe um eins vergrößern'}).click();
@@ -39,6 +43,7 @@ try{
   await page.getByRole('button',{name:'Antwort prüfen'}).click();
   assert.match(await page.locator('#feedback').innerText(),/Richtig!/);
   await page.screenshot({path:'test-results/mobile/'+label+'-koerperwerkstatt.png',fullPage:true});
+  console.log('['+label+'] Jahrgänge 7–10 prüfen');
   await page.goto(url+'/prototype/lernwelten-7-10.html',{waitUntil:'domcontentloaded',timeout:20000});
   await page.getByRole('button',{name:'Mission starten'}).first().click();
   await page.locator('#answer').fill('14');
@@ -48,6 +53,7 @@ try{
   await page.getByRole('button',{name:'Prüfen'}).click();
   assert.match(await page.locator('#feedback').innerText(),/Richtig!/);
   await page.screenshot({path:'test-results/mobile/'+label+'-lernwelten.png',fullPage:true});
+  console.log('['+label+'] Proportionsstadt prüfen');
   await page.goto(url+'/prototype/proportionsstadt.html',{waitUntil:'domcontentloaded',timeout:20000});
   await page.getByRole('button',{name:'Ein Brückenfeld hinzufügen'}).click();
   await page.getByRole('button',{name:'Ein Brückenfeld hinzufügen'}).click();
@@ -56,6 +62,7 @@ try{
   await page.getByRole('button',{name:'Antwort prüfen'}).click();
   assert.match(await page.locator('#feedback').innerText(),/Richtig!/);
   await page.screenshot({path:'test-results/mobile/'+label+'-proportionsstadt.png',fullPage:true});
+  console.log('['+label+'] Hauptwelt prüfen');
   await page.goto(url+'/',{waitUntil:'domcontentloaded',timeout:20000});
   await page.locator('#start').waitFor();
   await page.screenshot({path:'test-results/mobile/'+label+'-3d.png',fullPage:true});
