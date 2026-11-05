@@ -41,3 +41,53 @@ jobs:
           name: klassencheck-mobile-screenshots
           path: test-results/mobile/
           if-no-files-found: ignore
+
+  fehlerbericht:
+    name: Fehlerbericht automatisch in GitHub erfassen
+    needs: [test, browser-smoke]
+    if: ${{ always() && github.event_name != 'pull_request' && (needs.test.result == 'failure' || needs.browser-smoke.result == 'failure') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: read
+      contents: read
+      issues: write
+    steps:
+      - name: Fehlerhafte Jobs als GitHub-Issue dokumentieren
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          COMMIT_SHA: ${{ github.sha }}
+          TEST_RESULT: ${{ needs.test.result }}
+          BROWSER_RESULT: ${{ needs.browser-smoke.result }}
+        run: |
+          python3 - <<'PY'
+          import json,os,subprocess
+          def gh(*args,input=None):
+              return subprocess.run(['gh',*args],input=input,text=True,capture_output=True,check=True).stdout
+          repo=os.environ['GH_REPO']
+          run=os.environ['RUN_ID']
+          jobs=json.loads(gh('api',f'repos/{repo}/actions/runs/{run}/jobs','--paginate'))['jobs']
+          failed=[j for j in jobs if j.get('conclusion')=='failure']
+          lines=[
+            'Automatisch erfasster KlassenCheck-Fehler. Keine manuellen Screenshots erforderlich.',
+            '',
+            f"**Workflow:** {os.environ['RUN_URL']}",
+            f"**Commit:** `{os.environ['COMMIT_SHA']}`",
+            f"**Node-Tests:** {os.environ['TEST_RESULT']}",
+            f"**Browser-Tests:** {os.environ['BROWSER_RESULT']}",
+            '',
+            '### Fehlgeschlagene Jobs und Schritte',
+          ]
+          for job in failed:
+              lines.append(f"- **{job['name']}** · Job-ID `{job['id']}` · [Protokoll]({job['html_url']})")
+              for step in job.get('steps',[]):
+                  if step.get('conclusion')=='failure':
+                      lines.append(f"  - Fehlgeschlagener Schritt: {step['name']}")
+          lines.extend(['','Die Job-IDs erlauben den direkten Abruf der Protokolle über die verbundene GitHub-Schnittstelle.'])
+          title=f"[KlassenCheck CI] Fehlgeschlagener Testlauf #{run}"
+          gh('issue','create','--repo',repo,'--title',title,'--body','\n'.join(lines))
+          print('GitHub-Issue mit Job-IDs und Fehlerstellen erstellt.')
+          PY
