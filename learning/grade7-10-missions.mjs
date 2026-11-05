@@ -10,8 +10,8 @@ export const missions=[
  {id:"S10-01",grade:10,world:"Entscheidungszentrum",title:"Daten interpretieren",question:"Eine Stichprobe umfasst 80 Teile, davon 12 fehlerhafte. Wie hoch ist der Fehleranteil in Prozent?",answer:15,unit:"%",hint:"Teile 12 durch 80 und multipliziere mit 100.",diagnostic:"Prozentbasis verwechselt",wrong:12,explain:"12 : 80 × 100 = 15 %."}
 ];
 export function assess(mission,input){
- const value=typeof input==="string"&&input.trim()!==""?Number(input.replace(",",".")):input;
- if(!Number.isFinite(value))return {status:"invalid",feedback:"Bitte gib eine gültige Zahl ein."};
+ const value=typeof input==="string"&&input.trim()!==""?Number(input.trim().replace(",",".")):input;
+ if(typeof value!=="number"||!Number.isFinite(value))return {status:"invalid",feedback:"Bitte gib eine gültige Zahl ein."};
  if(value===mission.answer)return {status:"correct",feedback:mission.explain};
  if(value===mission.wrong)return {status:"misconception",feedback:"Kio erkennt einen möglichen Denkfehler: "+mission.diagnostic+". "+mission.hint};
  return {status:"retry",feedback:"Noch nicht richtig. "+mission.hint};
