@@ -19,3 +19,11 @@ test('Antworten lassen Dezimalkomma zu',()=>{
  const m={answer:2.5,wrong:3,hint:'Hinweis',diagnostic:'Fehler',explain:'Erklärung'};
  assert.equal(assess(m,'2,5').status,'correct');
 });
+
+test('Leere und nichtnumerische Eingaben sind keine gültigen Mathematikantworten',()=>{
+ const m=missions[0];
+ for(const input of [null,undefined,'  ','NaN','Infinity',{},[]]){
+  assert.equal(assess(m,input).status,'invalid',String(input));
+ }
+ assert.equal(assess(m,' 20 ').status,'correct');
+});
