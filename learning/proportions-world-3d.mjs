@@ -5,7 +5,7 @@ export function mountProportionsWorld(host){
  const renderer=new THREE.WebGLRenderer({antialias:true,alpha:false,powerPreference:'low-power'});renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.7));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.45;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;host.append(renderer.domElement);
  scene.add(new THREE.HemisphereLight('#b7e5ff','#12263e',2.2));
  const sun=new THREE.DirectionalLight('#ffe4b5',3);sun.position.set(-12,24,10);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.left=-40;sun.shadow.camera.right=40;sun.shadow.camera.top=40;sun.shadow.camera.bottom=-40;scene.add(sun);
- const mat=(color,metalness=0,roughness=.6,emissive)=>new THREE.MeshStandardMaterial({color,metalness,roughness,emissive:emissive||'#000000',emissiveIntensity:emissive?.65:0});
+ const mat=(color,metalness=0,roughness=.6,emissive)=>new THREE.MeshStandardMaterial({color,metalness,roughness,emissive:emissive||'#000000',emissiveIntensity:emissive ? 0.65 : 0});
  const stone=mat('#29495b',.18),gold=mat('#e4b77c',.65,.3),water=mat('#153d58',.45,.22),glass=mat('#55c9c8',.35,.17,'#187f91'),dark=mat('#152d45',.35);
  const box=(w,h,d,m,x,y,z,parent=scene)=>{const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh};
  box(170,.3,150,water,0,-1.4,0);
