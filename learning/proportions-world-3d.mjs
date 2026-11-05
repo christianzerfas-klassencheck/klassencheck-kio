@@ -13,6 +13,7 @@ export function mountProportionsWorld(host){
  const bridge=new THREE.Group();scene.add(bridge);
  function rebuild(count){for(const child of [...bridge.children]){bridge.remove(child);if(child.isMesh)child.geometry.dispose();if(child.isLight)child.dispose?.()}const n=Math.max(0,Math.min(10,count));for(let i=0;i<n;i++){const x=(i-(n-1)/2)*2.35;box(2.18,.6,4.4,gold,x,2,0,bridge);box(.23,3,.23,stone,x-.8,.5,-1.6,bridge);box(.23,3,.23,stone,x+.8,.5,1.6,bridge);box(2.12,.11,.14,glass,x,2.4,-2.05,bridge);box(2.12,.11,.14,glass,x,2.4,2.05,bridge);const lamp=new THREE.PointLight('#52fff2',.8,6);lamp.position.set(x,3,0);bridge.add(lamp)}}
  let count=3;rebuild(count);
+ renderer.domElement.addEventListener('webglcontextlost',event=>{event.preventDefault();cancelAnimationFrame(raf);host.dispatchEvent(new CustomEvent('kc-3d-error',{bubbles:true}))},{once:true});
  const observe=new MutationObserver(()=>{const text=document.getElementById('counter')?.textContent||'';const next=Number(text.match(/\d+/)?.[0]);if(Number.isFinite(next)&&next!==count){count=next;rebuild(count)}});observe.observe(document.getElementById('counter'),{childList:true,characterData:true,subtree:true});
  let frame=0,raf=0,visible=true;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
  function resize(){const w=host.clientWidth,h=host.clientHeight;if(!w||!h)return;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false)}const ro=new ResizeObserver(resize);ro.observe(host);resize();
