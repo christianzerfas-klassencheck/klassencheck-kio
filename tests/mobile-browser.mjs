@@ -53,6 +53,9 @@ try{
   await page.getByRole('button',{name:'Prüfen'}).click();
   assert.match(await page.locator('#feedback').innerText(),/Richtig!/);
   await page.screenshot({path:'test-results/mobile/'+label+'-lernwelten.png',fullPage:true});
+  assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('klassencheck-progress-v1')).completed['P7-01']),true,'Mission muss gespeichert sein');
+  await page.reload({waitUntil:'domcontentloaded'});
+  assert.equal(await page.getByRole('button',{name:/Erneut spielen/}).count()>0,true,'Abgeschlossene Mission muss nach Neuladen erkennbar sein');
   console.log('['+label+'] Proportionsstadt prüfen');
   await page.goto(url+'/prototype/proportionsstadt.html',{waitUntil:'domcontentloaded',timeout:20000});
   await page.getByRole('button',{name:'Ein Brückenfeld hinzufügen'}).click();
@@ -62,6 +65,10 @@ try{
   await page.getByRole('button',{name:'Antwort prüfen'}).click();
   assert.match(await page.locator('#feedback').innerText(),/Richtig!/);
   await page.screenshot({path:'test-results/mobile/'+label+'-proportionsstadt.png',fullPage:true});
+  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('klassencheck-progress-v1')));
+  assert.equal(saved.completed['P7-01'],true,'Abschluss aus anderer Lernwelt darf nicht verloren gehen');
+  assert.equal(saved.completed['P7-B1'],true,'Brückenmission muss gespeichert sein');
+  assert.equal(saved.attempts['P7-01'],2,'Fehlversuch und richtige Antwort zählen getrennt');
   // Fehlende externe 3D-Bibliothek darf die Mathematikmission nicht blockieren.
   const fallback=await context.newPage();
   await fallback.route('https://cdn.jsdelivr.net/**',route=>route.abort());
