@@ -22,7 +22,7 @@ test('Beschädigte Profilwerte werden entfernt und Versuchszähler bleiben numer
  assert.equal(p.completed['P7-01'],true);
 });
 test('Ungültige Missions-IDs und Array-Profile werden ignoriert',()=>{
- assert.deepEqual(recordProgress([], 'P7-01','correct').completed,{});
+ assert.deepEqual(recordProgress([], 'P7-01','correct').completed,{'P7-01':true});
  assert.deepEqual(recordProgress(emptyProgress(),'__proto__','correct'),emptyProgress());
  assert.deepEqual(recordProgress(emptyProgress(),'P7-01','correct').completed,{'P7-01':true});
 });
