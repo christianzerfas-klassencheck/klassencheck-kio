@@ -11,12 +11,12 @@ export function mountProportionsWorld(host){
  box(170,.3,150,water,0,-1.4,0);
  for(let side of [-1,1]){box(16,2,50,stone,side*21,-.5,0);for(let i=-3;i<=3;i++){const x=side*(17+(i%2)*2),z=i*7;const height=7+(Math.abs(i*11)%9);box(3.2,height,3.2,dark,x,height/2,z);box(3.4,.25,3.4,glass,x,height+.1,z)}}
  const bridge=new THREE.Group();scene.add(bridge);
- function rebuild(count){bridge.clear();const n=Math.max(0,Math.min(10,count));for(let i=0;i<n;i++){const x=(i-(n-1)/2)*2.35;box(2.18,.6,4.4,gold,x,2,0,bridge);box(.23,3,.23,stone,x-.8,.5,-1.6,bridge);box(.23,3,.23,stone,x+.8,.5,1.6,bridge);box(2.12,.11,.14,glass,x,2.4,-2.05,bridge);box(2.12,.11,.14,glass,x,2.4,2.05,bridge);const lamp=new THREE.PointLight('#52fff2',.8,6);lamp.position.set(x,3,0);bridge.add(lamp)}}
+ function rebuild(count){for(const child of [...bridge.children]){bridge.remove(child);if(child.isMesh)child.geometry.dispose();if(child.isLight)child.dispose?.()}const n=Math.max(0,Math.min(10,count));for(let i=0;i<n;i++){const x=(i-(n-1)/2)*2.35;box(2.18,.6,4.4,gold,x,2,0,bridge);box(.23,3,.23,stone,x-.8,.5,-1.6,bridge);box(.23,3,.23,stone,x+.8,.5,1.6,bridge);box(2.12,.11,.14,glass,x,2.4,-2.05,bridge);box(2.12,.11,.14,glass,x,2.4,2.05,bridge);const lamp=new THREE.PointLight('#52fff2',.8,6);lamp.position.set(x,3,0);bridge.add(lamp)}}
  let count=3;rebuild(count);
  const observe=new MutationObserver(()=>{const text=document.getElementById('counter')?.textContent||'';const next=Number(text.match(/\d+/)?.[0]);if(Number.isFinite(next)&&next!==count){count=next;rebuild(count)}});observe.observe(document.getElementById('counter'),{childList:true,characterData:true,subtree:true});
  let frame=0,raf=0,visible=true;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
  function resize(){const w=host.clientWidth,h=host.clientHeight;if(!w||!h)return;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false)}const ro=new ResizeObserver(resize);ro.observe(host);resize();
  const tick=()=>{raf=requestAnimationFrame(tick);if(!visible)return;frame++;if(!reduced){camera.position.x=22+Math.sin(frame*.0018)*3;camera.lookAt(0,1,0)}renderer.render(scene,camera)};tick();
  const io=new IntersectionObserver(entries=>{visible=entries[0]?.isIntersecting??true});io.observe(host);
- return ()=>{cancelAnimationFrame(raf);ro.disconnect();io.disconnect();observe.disconnect();renderer.dispose();host.replaceChildren()};
+ return ()=>{cancelAnimationFrame(raf);ro.disconnect();io.disconnect();observe.disconnect();rebuild(0);scene.traverse(obj=>{if(obj.isMesh)obj.geometry.dispose()});for(const material of [stone,gold,water,glass,dark])material.dispose();renderer.dispose();host.replaceChildren()};
 }
