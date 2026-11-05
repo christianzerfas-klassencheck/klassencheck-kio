@@ -66,7 +66,7 @@ try{
   const fallback=await context.newPage();
   await fallback.route('https://cdn.jsdelivr.net/**',route=>route.abort());
   await fallback.goto(url+'/prototype/proportionsstadt.html',{waitUntil:'domcontentloaded',timeout:20000});
-  await fallback.waitForFunction(()=>document.getElementById('world3d')?.style.display==='none',{timeout:10000});
+  await fallback.waitForFunction(()=>document.getElementById('world3d')?.style.display==='none',null,{timeout:10000});
   assert.equal(await fallback.locator('svg#scene').isVisible(),true,'2D-Fallback muss sichtbar sein');
   await fallback.getByRole('button',{name:'Ein Brückenfeld hinzufügen'}).click();
   assert.match(await fallback.locator('#counter').innerText(),/4 Felder/);
