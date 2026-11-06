@@ -18,6 +18,8 @@ export function loadProgress(storage){try{return normalizeProgress(JSON.parse(st
 export function saveProgress(storage,progress){try{storage.setItem(KEY,JSON.stringify(normalizeProgress(progress)));return true}catch{return false}}
 export function recordProgress(progress,id,status){
  const next=normalizeProgress(progress);
+ // Nur bewertete Antworten zählen, keine leeren Eingaben oder Bauhinweise.
+ if(!['correct','retry','misconception'].includes(status))return next;
  if(typeof id!=='string'||!/^[A-Za-z0-9-]{1,64}$/.test(id))return next;
  const previous=next.attempts[id]??0;
  const attempts={...next.attempts,[id]:Math.min(Number.MAX_SAFE_INTEGER,previous+1)};

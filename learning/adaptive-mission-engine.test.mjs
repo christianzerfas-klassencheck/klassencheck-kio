@@ -2,6 +2,24 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {missions,assess} from './grade7-10-missions.mjs';
 import {makeMissionState,recordAttempt,recordHint,selectNextMission} from './adaptive-mission-engine.mjs';
+test('Ungültige Eingaben verändern weder Diagnose noch Hilfestufe',()=>{
+ const m=missions[0];
+ let state=makeMissionState(m);
+ for(const input of ['', ' ', 'keine Zahl', NaN, Infinity]){
+  const outcome=recordAttempt(state,m,input,assess);
+  assert.equal(outcome.result.status,'invalid');
+  assert.deepEqual(outcome.state,state);
+  assert.equal(outcome.nextAction,'retry');
+ }
+ const first=recordAttempt(state,m,'9999',assess);
+ assert.equal(first.state.attempts,1);
+ assert.equal(first.nextAction,'retry');
+ const invalid=recordAttempt(first.state,m,'',assess);
+ assert.deepEqual(invalid.state,first.state);
+ const second=recordAttempt(invalid.state,m,'9999',assess);
+ assert.equal(second.state.attempts,2);
+ assert.equal(second.nextAction,'guided-example');
+});
 test('Fehlversuch löst passgenaue Hilfe aus',()=>{
  const mission=missions[0],start=makeMissionState(mission);
  const r=recordAttempt(start,mission,String(mission.wrong),assess);
