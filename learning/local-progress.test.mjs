@@ -2,6 +2,16 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {emptyProgress,loadProgress,saveProgress,recordProgress,clearProgress} from './local-progress.mjs';
 function memory(){const data=new Map();return {getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v),removeItem:k=>data.delete(k)}}
+test('Eingabe- und Bauhinweise zählen nicht als fachliche Versuche',()=>{
+ const p=recordProgress(emptyProgress(),'P7-01','correct');
+ for(const status of ['invalid','empty','build','unknown',undefined]){
+  assert.deepEqual(recordProgress(p,'P7-01',status),p);
+  assert.deepEqual(recordProgress(emptyProgress(),'P7-B1',status),emptyProgress());
+ }
+ for(const status of ['correct','retry','misconception']){
+  assert.equal(recordProgress(emptyProgress(),'P7-01',status).attempts['P7-01'],1);
+ }
+});
 test('Jahrgangsmission und Proportionsstadt teilen ein Lernprofil',()=>{
  const store=memory();let p=emptyProgress();p=recordProgress(p,'P7-01','correct');p=recordProgress(p,'P7-B1','retry');p=recordProgress(p,'P7-B1','correct');
  assert.equal(saveProgress(store,p),true);const loaded=loadProgress(store);assert.equal(loaded.completed['P7-01'],true);assert.equal(loaded.completed['P7-B1'],true);assert.equal(loaded.attempts['P7-B1'],2);
